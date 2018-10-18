@@ -1,0 +1,36 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "posteet",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "RegisterPackage",
+          "slots": [],
+          "samples": [
+            "Enregistre une commande",
+            "Enregistre un colis",
+            "Enregistre moi un colis",
+            "Je voudrais enregistrer un colis"
+          ]
+        }
+      ],
+      "types": []
+    }
+  }
+}
