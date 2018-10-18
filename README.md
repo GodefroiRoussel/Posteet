@@ -1,4 +1,4 @@
-# wi_flight
+# Posteet
 
 To deploy your code to lambda use the command below: 
 ```
