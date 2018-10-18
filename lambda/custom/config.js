@@ -1,4 +1,7 @@
 module.exports = {
+    DYNAMODB_TABLE: 'Posteet',
+
+
     APP_STATES: {
         START: "_START", // Entry point, start the application.
     },
@@ -16,13 +19,17 @@ module.exports = {
                 //General
                 EXIT_INSTRUCTIONS: 'Vous pouvez quitter l\'application en disant "Alexa quitte". ',
                 UNHANDLE_MESSAGE: "Je suis désolé, je n'ai pas compris ce que vous venez de dire. ",
-                STOP_MESSAGE: "Merci d'avoir utilisé notre application. J'espère vous revoir très bientôt.",
+                STOP_MESSAGE: "Merci d'avoir utilisé notre application. J'espère vous revoir très bientôt. ",
+                ASK_ACTION: "Que souhaitez vous faire? ",
 
                 // startFlightHandler
-                WELCOME_APP_MESSAGE: 'Bienvenue sur %s. ',
+                WELCOME_APP_MESSAGE: 'Bienvenue sur %s . ',
                 APP_NAME: 'Posteet ',
-                WELCOME_MESSAGE: 'Je vais vous aider avec les différents service de La Poste.',
-                MENU_MESSAGE: 'Vous pouvez enregistrer votre colis. Que souhaitez vous faire?'
+                WELCOME_MESSAGE: 'Je vais vous aider avec les différents service de La Poste. ',
+                REGISTER_PACKAGE: 'Vous pouvez enregistrer un colis. ',
+                RETRIEVE_INFO_PACKAGE: "Vous pouvez savoir où se trouve un de vos colis enregistrés. ",
+                OPTIONS_MESSAGE: 'Quel service souhaitez-vous demander? Vous pouvez enregistrer un colis ou bien retrouver un colis enregistré précédemment.',
+
             }
         }
     }

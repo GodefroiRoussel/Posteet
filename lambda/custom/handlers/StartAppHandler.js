@@ -1,6 +1,7 @@
 const Alexa = require('alexa-sdk');
 const config = require('../config');
 const ResponseHelper = require('../Helpers/ResponseHelper');
+const DB = require('../Database/DB');
 
 const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
     Welcome() {
@@ -10,10 +11,22 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
         this.emitWithState('Menu');
     },
     Menu() {
+        const alexa = this;
         let speechOutput = this.attributes.speechOutput;
         this.attributes.speechOutput = '';
-        speechOutput += this.t('MENU_MESSAGE');
-        ResponseHelper.sendResponse(this, `${speechOutput} ${config.AUDIO(config.WAIT_RESPONSE_SOUND)}`, this.t('MENU_MESSAGE'));
+        speechOutput += this.t('REGISTER_PACKAGE');
+        DB.getSession(alexa.event.context.System.user.userId)
+            .then(session => {
+                if (session.packages) {
+                    speechOutput += this.t('RETRIEVE_INFO_PACKAGE');
+                }
+                DB.save(alexa.event.context.System.user.userId, session).then(() => {
+                    ResponseHelper.sendResponse(alexa, `${speechOutput}`, this.t('OPTIONS_MESSAGE'));
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     },
     RegisterPackage() {
         speechOutput = 'Félicitations, vous voulez enregistrez un colis. Maintenant codez !'

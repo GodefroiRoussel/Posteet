@@ -23,6 +23,8 @@
   "homepage": "https://github.com/GodefroiRoussel/wi_flight#readme",
   "dependencies": {
     "alexa-sdk": "^1.0.25",
-    "axios": "^0.18.0"
+    "aws-sdk": "^2.338.0",
+    "axios": "^0.18.0",
+    "date-fns": "^1.29.0"
   }
 }
