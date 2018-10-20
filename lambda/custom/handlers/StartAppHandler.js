@@ -29,8 +29,12 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
             });
     },
     RegisterPackage() {
-        speechOutput = 'Félicitations, vous voulez enregistrez un colis. Maintenant codez !'
-        ResponseHelper.sendResponse(this, `${speechOutput} `, "", null, null, null, false);
+        this.handler.state = config.APP_STATES.REGISTER_PACKAGE;
+        this.emitWithState('Init');
+    },
+    FindPackage() {
+        this.handler.state = config.APP_STATES.FIND_PACKAGE;
+        this.emitWithState('FindPackage');
     },
     'AMAZON.RepeatIntent': function RepeatOption() {
         this.attributes.speechOutput = 'Je suis passé dans le repète intent';

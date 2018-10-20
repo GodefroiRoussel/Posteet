@@ -5,6 +5,8 @@ const config = require('./config');
  * We import handlers as they are separated in different files
  */
 const startAppHandler = require('./handlers/StartAppHandler');
+const registerPackageHandler = require('./handlers/RegisterPackageHandler');
+const findPackageHandler = require('./handlers/FindPackageHandler');
 
 const newSessionHandlers = {
     LaunchRequest: function () {
@@ -20,7 +22,9 @@ exports.handler = function (event, context) {
     alexa.resources = config.languageString;
     alexa.registerHandlers(
         newSessionHandlers,
-        startAppHandler
+        startAppHandler,
+        registerPackageHandler,
+        findPackageHandler
     );
     alexa.execute();
 };
