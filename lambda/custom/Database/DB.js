@@ -4,8 +4,8 @@
  *
  * This allow us to save a user session in the database and retrieve and reconstruct it.
  *
- * Last Updated: July 25, 2018
- * Author: Picosson A.
+ * Last Updated: October 18, 2018
+ * Author: Picosson A. & Roussel G.
  */
 const aws = require('aws-sdk');
 const dateFns = require('date-fns');
@@ -27,7 +27,7 @@ const save = function saveSession(userId, session) {
         }
 
         // By default the user used the app for one day (today)
-        let dayUsedInARow = 1;
+        let dayUsedInARow = session.dayUsedInARow;
 
         // If the user already used the app and it was yesterday
         if (session.lastUse && dateFns.isYesterday(new Date(session.lastUse))) {
@@ -37,6 +37,7 @@ const save = function saveSession(userId, session) {
 
         // By default if the user never saved a package then packages is set to false (because we cannot save an empty parameter in DynamoDB)
         let packages = false;
+
         // If there is at least one package saved in the session
         if (session.packages) {
             // We retrieve packages so we can store it to let the user find it later
