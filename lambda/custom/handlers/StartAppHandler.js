@@ -36,6 +36,10 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
         this.handler.state = config.APP_STATES.FIND_PACKAGE;
         this.emitWithState('FindPackage');
     },
+    PricePackage() {
+        this.handler.state = config.APP_STATES.PRICE_PACKAGE;
+        this.emitWithState('PricePackage');
+    },
     'AMAZON.RepeatIntent': function RepeatOption() {
         this.attributes.speechOutput = 'Je suis passé dans le repète intent';
         this.emitWithState('Menu');

@@ -7,6 +7,7 @@ const config = require('./config');
 const startAppHandler = require('./handlers/StartAppHandler');
 const registerPackageHandler = require('./handlers/RegisterPackageHandler');
 const findPackageHandler = require('./handlers/FindPackageHandler');
+const pricePackageHandler = require('./handlers/PricePackageHandler');
 
 const newSessionHandlers = {
     LaunchRequest: function () {
@@ -24,7 +25,8 @@ exports.handler = function (event, context) {
         newSessionHandlers,
         startAppHandler,
         registerPackageHandler,
-        findPackageHandler
+        findPackageHandler,
+        pricePackageHandler
     );
     alexa.execute();
 };

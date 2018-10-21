@@ -1,384 +1,510 @@
 {
   "interactionModel": {
-    "languageModel": {
-      "invocationName": "posteet",
-      "intents": [
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.NavigateHomeIntent",
-          "samples": []
-        },
-        {
-          "name": "RegisterPackage",
-          "slots": [],
-          "samples": [
-            "Enregistre une commande",
-            "Enregistre un colis",
-            "Enregistre moi un colis",
-            "Je voudrais enregistrer un colis"
-          ]
-        },
-        {
-          "name": "PackageNumberIntent",
-          "slots": [
-            {
-              "name": "letter",
-              "type": "letter"
-            },
-            {
-              "name": "number",
-              "type": "AMAZON.NUMBER"
-            },
-            {
-              "name": "firstDigits",
-              "type": "AMAZON.FOUR_DIGIT_NUMBER"
-            },
-            {
-              "name": "secondDigits",
-              "type": "AMAZON.FOUR_DIGIT_NUMBER"
-            },
-            {
-              "name": "lastDigits",
-              "type": "AMAZON.FOUR_DIGIT_NUMBER"
-            }
+      "languageModel": {
+          "invocationName": "posteet",
+          "intents": [
+              {
+                  "name": "AMAZON.CancelIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.HelpIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.StopIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.NavigateHomeIntent",
+                  "samples": []
+              },
+              {
+                  "name": "RegisterPackage",
+                  "slots": [],
+                  "samples": [
+                      "Enregistre une commande",
+                      "Enregistre un colis",
+                      "Enregistre moi un colis",
+                      "Je voudrais enregistrer un colis"
+                  ]
+              },
+              {
+                  "name": "PackageNumberIntent",
+                  "slots": [
+                      {
+                          "name": "letter",
+                          "type": "letter"
+                      },
+                      {
+                          "name": "number",
+                          "type": "AMAZON.NUMBER"
+                      },
+                      {
+                          "name": "firstDigits",
+                          "type": "AMAZON.FOUR_DIGIT_NUMBER"
+                      },
+                      {
+                          "name": "secondDigits",
+                          "type": "AMAZON.FOUR_DIGIT_NUMBER"
+                      },
+                      {
+                          "name": "lastDigits",
+                          "type": "AMAZON.FOUR_DIGIT_NUMBER"
+                      }
+                  ],
+                  "samples": [
+                      "{number} {letter} {firstDigits} {secondDigits} {lastDigits}"
+                  ]
+              },
+              {
+                  "name": "AMAZON.NoIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.YesIntent",
+                  "samples": []
+              },
+              {
+                  "name": "FindPackage",
+                  "slots": [],
+                  "samples": [
+                      "Trouve mon colis",
+                      "Trouve moi un colis",
+                      "Dis moi où se trouve mon colis",
+                      "Où se trouve mon colis",
+                      "Dis moi où est mon colis",
+                      "Où en est mon colis",
+                      "Où est mon colis"
+                  ]
+              },
+              {
+                  "name": "PricePackage",
+                  "slots": [
+                      {
+                          "name": "package",
+                          "type": "PACKAGE_TYPE",
+                          "samples": [
+                              "une {package}",
+                              "un {package}",
+                              "je veux savoi le prix de {package}",
+                              "je veux envoyer {package}",
+                              "{package}"
+                          ]
+                      },
+                      {
+                          "name": "poids",
+                          "type": "AMAZON.NUMBER",
+                          "samples": [
+                              "{poids}",
+                              "il fait {poids} grammes",
+                              "c'est {poids} grammes",
+                              "{poids} grammes"
+                          ]
+                      }
+                  ],
+                  "samples": [
+                      "prix de {package} de {poids} grammes",
+                      "prix {package} de {poids} grammes",
+                      "prix",
+                      "prix {package}",
+                      "prix d'un {package}",
+                      "prix d'une {package}",
+                      "je veux savoir le prix d'une {package}",
+                      "je veux savoir le prix d'un {package}"
+                  ]
+              }
           ],
-          "samples": [
-            "{number} {letter} {firstDigits} {secondDigits} {lastDigits}"
+          "types": [
+              {
+                  "name": "PACKAGE_TYPE",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "colissimo"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "colis",
+                              "synonyms": [
+                                  "paquet"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "lettre",
+                              "synonyms": [
+                                  "carte"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "letter",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "z",
+                              "synonyms": [
+                                  "Z.",
+                                  "Z"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "y",
+                              "synonyms": [
+                                  "Y.",
+                                  "Y"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "x",
+                              "synonyms": [
+                                  "X.",
+                                  "X"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "w",
+                              "synonyms": [
+                                  "W.",
+                                  "W"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "v",
+                              "synonyms": [
+                                  "V.",
+                                  "V"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "u",
+                              "synonyms": [
+                                  "U.",
+                                  "U"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "t",
+                              "synonyms": [
+                                  "T.",
+                                  "T"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "s",
+                              "synonyms": [
+                                  "S.",
+                                  "S"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "r",
+                              "synonyms": [
+                                  "R.",
+                                  "R"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "q",
+                              "synonyms": [
+                                  "Q.",
+                                  "Q"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "p",
+                              "synonyms": [
+                                  "P.",
+                                  "P"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "o",
+                              "synonyms": [
+                                  "O.",
+                                  "O"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "n",
+                              "synonyms": [
+                                  "N.",
+                                  "N"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "m",
+                              "synonyms": [
+                                  "M.",
+                                  "M"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "l",
+                              "synonyms": [
+                                  "L.",
+                                  "L"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "k",
+                              "synonyms": [
+                                  "K.",
+                                  "K"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "j",
+                              "synonyms": [
+                                  "J.",
+                                  "J"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "i",
+                              "synonyms": [
+                                  "I.",
+                                  "I"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "h",
+                              "synonyms": [
+                                  "H.",
+                                  "H"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "g",
+                              "synonyms": [
+                                  "G.",
+                                  "G"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "f",
+                              "synonyms": [
+                                  "F.",
+                                  "F"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "e",
+                              "synonyms": [
+                                  "E.",
+                                  "E"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "d",
+                              "synonyms": [
+                                  "D.",
+                                  "D"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "c",
+                              "synonyms": [
+                                  "C.",
+                                  "C"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "b",
+                              "synonyms": [
+                                  "B.",
+                                  "B"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "a",
+                              "synonyms": [
+                                  "A.",
+                                  "A"
+                              ]
+                          }
+                      }
+                  ]
+              }
           ]
-        },
-        {
-          "name": "AMAZON.NoIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.YesIntent",
-          "samples": []
-        },
-        {
-          "name": "FindPackage",
-          "slots": [],
-          "samples": [
-            "Trouve mon colis",
-            "Trouve moi un colis",
-            "Dis moi où se trouve mon colis",
-            "Où se trouve mon colis",
-            "Dis moi où est mon colis",
-            "Où en est mon colis",
-            "Où est mon colis"
+      },
+      "dialog": {
+          "intents": [
+              {
+                  "name": "PackageNumberIntent",
+                  "confirmationRequired": true,
+                  "prompts": {
+                      "confirmation": "Confirm.Intent.1217931163825"
+                  },
+                  "slots": [
+                      {
+                          "name": "letter",
+                          "type": "letter",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "number",
+                          "type": "AMAZON.NUMBER",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "firstDigits",
+                          "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "secondDigits",
+                          "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "lastDigits",
+                          "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      }
+                  ]
+              },
+              {
+                  "name": "PricePackage",
+                  "confirmationRequired": true,
+                  "prompts": {
+                      "confirmation": "Confirm.Intent.701326212486"
+                  },
+                  "slots": [
+                      {
+                          "name": "package",
+                          "type": "PACKAGE_TYPE",
+                          "confirmationRequired": false,
+                          "elicitationRequired": true,
+                          "prompts": {
+                              "elicitation": "Elicit.Slot.701326212486.1189927802503"
+                          }
+                      },
+                      {
+                          "name": "poids",
+                          "type": "AMAZON.NUMBER",
+                          "confirmationRequired": true,
+                          "elicitationRequired": true,
+                          "prompts": {
+                              "confirmation": "Confirm.Slot.701326212486.1303327908017",
+                              "elicitation": "Elicit.Slot.701326212486.1303327908017"
+                          }
+                      }
+                  ]
+              }
           ]
-        }
-      ],
-      "types": [
-        {
-          "name": "letter",
-          "values": [
-            {
-              "name": {
-                "value": "z",
-                "synonyms": [
-                  "Z.",
-                  "Z"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "y",
-                "synonyms": [
-                  "Y.",
-                  "Y"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "x",
-                "synonyms": [
-                  "X.",
-                  "X"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "w",
-                "synonyms": [
-                  "W.",
-                  "W"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "v",
-                "synonyms": [
-                  "V.",
-                  "V"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "u",
-                "synonyms": [
-                  "U.",
-                  "U"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "t",
-                "synonyms": [
-                  "T.",
-                  "T"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "s",
-                "synonyms": [
-                  "S.",
-                  "S"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "r",
-                "synonyms": [
-                  "R.",
-                  "R"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "q",
-                "synonyms": [
-                  "Q.",
-                  "Q"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "p",
-                "synonyms": [
-                  "P.",
-                  "P"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "o",
-                "synonyms": [
-                  "O.",
-                  "O"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "n",
-                "synonyms": [
-                  "N.",
-                  "N"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "m",
-                "synonyms": [
-                  "M.",
-                  "M"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "l",
-                "synonyms": [
-                  "L.",
-                  "L"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "k",
-                "synonyms": [
-                  "K.",
-                  "K"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "j",
-                "synonyms": [
-                  "J.",
-                  "J"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "i",
-                "synonyms": [
-                  "I.",
-                  "I"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "h",
-                "synonyms": [
-                  "H.",
-                  "H"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "g",
-                "synonyms": [
-                  "G.",
-                  "G"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "f",
-                "synonyms": [
-                  "F.",
-                  "F"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "e",
-                "synonyms": [
-                  "E.",
-                  "E"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "d",
-                "synonyms": [
-                  "D.",
-                  "D"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "c",
-                "synonyms": [
-                  "C.",
-                  "C"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "b",
-                "synonyms": [
-                  "B.",
-                  "B"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "a",
-                "synonyms": [
-                  "A.",
-                  "A"
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "dialog": {
-      "intents": [
-        {
-          "name": "PackageNumberIntent",
-          "confirmationRequired": true,
-          "prompts": {
-            "confirmation": "Confirm.Intent.1217931163825"
-          },
-          "slots": [
-            {
-              "name": "letter",
-              "type": "letter",
-              "confirmationRequired": false,
-              "elicitationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "number",
-              "type": "AMAZON.NUMBER",
-              "confirmationRequired": false,
-              "elicitationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "firstDigits",
-              "type": "AMAZON.FOUR_DIGIT_NUMBER",
-              "confirmationRequired": false,
-              "elicitationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "secondDigits",
-              "type": "AMAZON.FOUR_DIGIT_NUMBER",
-              "confirmationRequired": false,
-              "elicitationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "lastDigits",
-              "type": "AMAZON.FOUR_DIGIT_NUMBER",
-              "confirmationRequired": false,
-              "elicitationRequired": false,
-              "prompts": {}
-            }
-          ]
-        }
-      ]
-    },
-    "prompts": [
-      {
-        "id": "Confirm.Intent.1217931163825",
-        "variations": [
+      },
+      "prompts": [
           {
-            "type": "PlainText",
-            "value": "Ton numéro de colis est le {number} {letter} {firstDigits} {secondDigits} {lastDigits} , est-ce correct ?"
+              "id": "Confirm.Intent.1217931163825",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "Ton numéro de colis est le {number} {letter} {firstDigits} {secondDigits} {lastDigits} , est-ce correct ?"
+                  }
+              ]
+          },
+          {
+              "id": "Confirm.Intent.701326212486",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "Voulez-vous le prix de {package} de {poids} grammes ?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.701326212486.1189927802503",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "Quel type d'envoie voulez-vous faire ?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.701326212486.1303327908017",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "Quel est le poids de votre {package} en grammes ?"
+                  }
+              ]
+          },
+          {
+              "id": "Confirm.Slot.701326212486.1303327908017",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "Avez-vous dit {poids} grammes ?"
+                  }
+              ]
           }
-        ]
-      }
-    ]
+      ]
   }
 }

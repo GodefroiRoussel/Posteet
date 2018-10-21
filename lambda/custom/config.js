@@ -6,6 +6,7 @@ module.exports = {
         START: "_START", // Entry point, start the application.
         REGISTER_PACKAGE: "_REGISTER_PACKAGE",
         FIND_PACKAGE: "_FIND_PACKAGE",
+        PRICE_PACKAGE: "_PRICE_PACKAGE",
     },
     AUDIO: src => `<audio src="${src}"/>`,
 
@@ -13,7 +14,7 @@ module.exports = {
     WAIT_RESPONSE_SOUND: 'https://s3-eu-west-1.amazonaws.com/alexasoundstrivia/wait_sound.mp3',
     IMAGE_BACKGROUND_URL: 'http://www.galwaytourcompany.com/wp-content/uploads/2017/10/Connemara-Wild-Atlantic-Way.jpg',
 
-    APP_ID: 'amzn1.ask.skill.fc08466f-0f6f-4d27-bb24-841911b56413', // TODO replace with your app ID
+    APP_ID: 'amzn1.ask.skill.aa276ca0-bc7e-4c40-a4bf-b62f0cef77bb', // TODO replace with your app ID
 
     languageString: {
         "fr-FR": {
