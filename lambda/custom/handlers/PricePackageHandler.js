@@ -18,14 +18,22 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
         }
         else{
             let speechOutput="Vous avez ";
-            console.log(this.event.request.intent.slots.package.resolutions.resolutionsPerAuthority[0].value);
             const package = alexa.event.request.intent.slots.package.value;
             const weight = alexa.event.request.intent.slots.poids.value;
-            console.log(package);
             return instance.get(`tarifenvoi/v1?type=${package}&poids=${weight}`)
                 .then((response) => {
                     response.data.forEach(element => {
-                        speechOutput += element.product+" "+element.channel+" à "+element.price+" "+element.currency;
+                        speechOutput += element.product+" ";
+                        if(element.channel=="bureau"){
+                            speechOutput += " en bureau de poste ";
+                        }
+                        else if (element.channel== " en ligne "){
+                            speechOutput +=" en ligne ";
+                        }
+                        else{
+                            speechOutput+=" "+element.channel+" ";
+                        }
+                        speechOutput += " à "+element.price+" "+element.currency+".<break time='1s'/>";
                     });
                     console.log(speechOutput);
                     // OK
@@ -45,7 +53,6 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
         }
     },
     Unhandled() {
-        console.log("handler !!");
         ResponseHelper.sendResponse(this, this.t('UNHANDLE_MESSAGE'));
     },
     'AMAZON.CancelIntent': function stopGame() {
