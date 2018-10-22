@@ -14,7 +14,7 @@ module.exports = {
     WAIT_RESPONSE_SOUND: 'https://s3-eu-west-1.amazonaws.com/alexasoundstrivia/wait_sound.mp3',
     IMAGE_BACKGROUND_URL: 'http://www.galwaytourcompany.com/wp-content/uploads/2017/10/Connemara-Wild-Atlantic-Way.jpg',
 
-    APP_ID: 'amzn1.ask.skill.aa276ca0-bc7e-4c40-a4bf-b62f0cef77bb', // TODO replace with your app ID
+    APP_ID: 'amzn1.ask.skill.fc08466f-0f6f-4d27-bb24-841911b56413', // TODO replace with your app ID
 
     languageString: {
         "fr-FR": {
@@ -24,6 +24,10 @@ module.exports = {
                 UNHANDLE_MESSAGE: "Je suis désolé, je n'ai pas compris ce que vous venez de dire. ",
                 STOP_MESSAGE: "Merci d'avoir utilisé notre application. J'espère vous revoir très bientôt. ",
                 ASK_ACTION: "Que souhaitez vous faire? ",
+                CANCEL_MESSAGE: "Très bien, retournons sur le menu. ",
+                API_PROBLEM: "Cependant le service est temporairement indisponible, réessayez plus tard. ",
+                ASK_OTHER_ACTION: "Souhaitez vous faire autre chose avec notre application? ",
+                WRONG_UNDERSTANDING_PACKAGE: "Ah j'ai mal compris votre numéro de colis ? Recommençons ! Dites moi votre numéro de colis ou dites 'Annuler' pour retourner à l'accueil. ",
 
                 // startFlightHandler
                 WELCOME_APP_MESSAGE: 'Bienvenue sur %s . ',
@@ -31,7 +35,20 @@ module.exports = {
                 WELCOME_MESSAGE: 'Je vais vous aider avec les différents service de La Poste. ',
                 REGISTER_PACKAGE: 'Vous pouvez enregistrer un colis. ',
                 RETRIEVE_INFO_PACKAGE: "Vous pouvez savoir où se trouve un de vos colis enregistrés. ",
-                OPTIONS_MESSAGE: 'Quel service souhaitez-vous demander? Vous pouvez enregistrer un colis ou bien retrouver un colis enregistré précédemment.',
+                OPTIONS_MESSAGE: 'Quel service souhaitez-vous demander? Vous pouvez enregistrer un colis ou bien retrouver un colis enregistré précédemment. ',
+
+                // Register Package Handler
+                INIT_REGISTRATION: 'On va maintenant enregistrer votre colis. Veuillez me donner votre numéro de colis. ',
+                PACKAGE_REGISTERED: "Parfait, j'ai enregistré votre colis. Vous pouvez dès à présent suivre votre colis en disant 'Alexa où en est mon colis'. ",
+
+                // Find Package Handler
+                WRONT_TYPE: "Le problème vient de chez nous et nous travaillons actuellement dessus. Merci de votre compréhension. ",
+                TRY_ANOTHER_PACKAGE_NUMBER: "Essayez de donner un nouveau numéro de colis. ",
+
+                ONE_PACKAGE_REGISTER: "Vous avez actuellement un seul colis enregistré. ",
+                MANY_PACKAGES_REGISTER: "Vous avez actuellement plusieurs colis déjà enregistré, je vais faire une recherche pour chaque colis. ",
+                NO_PACKAGE_REGISTER: "Vous n'avez pas de colis déjà enregistré, veuillez me donner le numéro de colis que je dois chercher. ",
+
             }
         }
     }

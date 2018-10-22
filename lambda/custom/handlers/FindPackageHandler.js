@@ -16,7 +16,7 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
         if (confirmationStatus === 'NONE') {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
-            speechOutput = "Ah j'ai mal compris votre numéro de colis ? Recommençons la saisie! Dites moi votre numéro de colis ou dites 'Annuler' pour retourner à l'accueil."
+            speechOutput = this.t("WRONG_UNDERSTANDING_PACKAGE")
             ResponseHelper.sendResponse(this, `${speechOutput}`, "");
         } else {
             const alexa = this;
@@ -35,17 +35,17 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
                     speechoutput += response.data.message
                     // OK
                     if (response.status === 200) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . Souhaitez vous faire autre chose avec notre application? `, "");
+                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("ASK_OTHER_ACTION")}`, "");
                         // Wrong Package Code Type Sent
                     } else if (response.status === 400) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . Le problème vient de chez nous et nous travaillons actuellement dessus. Merci de votre compréhension. `, "");
+                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("WRONG_TYPE")}`, "");
                         // Package Not Found
                     } else if (response.status === 404) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . Essayez de donner un nouveau numéro de colis. `, "");
+                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("TRY_ANOTHER_PACKAGE_NUMBER")}`, "");
                     }
                 })
                 .catch(err => {
-                    ResponseHelper.sendResponse(alexa, `${speechOutput} . Cependant le service est temporairement indisponible, réessayez plus tard. `, "");
+                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("API_PROBLEM")}`, "", null, null, null, false);
                 })
         }
     },
@@ -57,35 +57,35 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
                 if (session.packages) {
                     if (session.packages.length == 1) {
                         const packageNumber = session.packages[0];
-                        let speechOutput = "Vous avez actuellement un seul colis enregistré. "
+                        let speechOutput = this.t("ONE_PACKAGE_REGISTER");
 
                         return instance.get(`suivi/v1/${packageNumber}`)
                             .then((response) => {
                                 speechOutput += response.data.message
                                 // OK
                                 if (response.status === 200) {
-                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . Souhaitez vous faire autre chose avec notre application? `, "");
+                                    this.handler.state = config.APP_STATES.START;
+                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . Le colis ${packageNumber} ${this.t("ASK_OTHER_ACTION")} `, "");
                                     // Wrong Package Code Type Sent
                                 } else if (response.status === 400) {
-                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . Le problème vient de chez nous et nous travaillons actuellement dessus. Merci de votre compréhension. `, "");
+                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("WRONT_TYPE")} `, "");
                                     // Package Not Found
                                 } else if (response.status === 404) {
-                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . Essayez de donner un nouveau numéro de colis. `, "");
+                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("TRY_ANOTHER_PACKAGE_NUMBER")} `, "");
                                 }
                             })
                             .catch(err => {
                                 console.log(err)
-                                ResponseHelper.sendResponse(alexa, `${speechOutput} . Cependant le service est temporairement indisponible, réessayez plus tard. `, "");
+                                ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("API_PROBLEM")} `, "");
                             })
 
                     } else {
-                        let speechOutput = "Vous avez actuellement plusieurs colis déjà enregistré, je vais faire une recherche pour chaque colis. "
-
-                        return instance.get(`suivi/v1/list?codes=${session.packages.split(',')}`)
+                        let speechOutput = this.t("MANY_PACKAGES_REGISTER");
+                        return instance.get(`suivi/v1/list?codes=${session.packages.join(',')}`)
                             .then((response) => {
                                 response.data.map(obj => {
                                     if (obj.data) {
-                                        speechOutput += `Colis ${obj.data.code} : ${obj.data.message} `
+                                        speechOutput += `Colis ${obj.data.code} : ${obj.data.message} <break time="0.5s"/>`
                                     } else {
                                         speechOutput += ' ERREUR '
                                     }
@@ -93,11 +93,11 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
                                 ResponseHelper.sendResponse(alexa, `${speechOutput}`, "");
                             })
                             .catch(err => {
-                                ResponseHelper.sendResponse(alexa, `${speechOutput} . Cependant le service est temporairement indisponible, réessayez plus tard. `, "");
+                                ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("API_PROBLEM")} `, "");
                             })
                     }
                 } else {
-                    let speechOutput = "Vous n'avez pas de colis déjà enregistré, veuillez me donner le numéro de colis que je dois chercher. "
+                    let speechOutput = this.t("NO_PACKAGE_REGISTER");
                     ResponseHelper.sendResponse(alexa, `${speechOutput}`, "");
                 }
             })
@@ -106,7 +106,7 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
         ResponseHelper.sendResponse(this, this.t('UNHANDLE_MESSAGE'));
     },
     'AMAZON.CancelIntent': function stopGame() {
-        this.attributes.speechOutput = 'Très bien, retournous sur le menu. ';
+        this.attributes.speechOutput = this.t("CANCEL_MESSAGE");
         this.handler.state = config.APP_STATES.START;
         this.emitWithState('Menu');
     },
