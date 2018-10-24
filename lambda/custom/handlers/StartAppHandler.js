@@ -19,6 +19,7 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
             .then(session => {
                 if (session.packages) {
                     speechOutput += this.t('RETRIEVE_INFO_PACKAGE');
+                    speechOutput += this.t('DELETE_PACKAGE');
                 }
                 DB.save(alexa.event.context.System.user.userId, session).then(() => {
                     ResponseHelper.sendResponse(alexa, `${speechOutput}`, this.t('OPTIONS_MESSAGE'));
@@ -39,6 +40,10 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
     PricePackage() {
         this.handler.state = config.APP_STATES.PRICE_PACKAGE;
         this.emitWithState('PricePackage');
+    },
+    DeletePackage() {
+        this.handler.state = config.APP_STATES.DELETE_PACKAGE;
+        this.emitWithState('Init');
     },
     'AMAZON.RepeatIntent': function RepeatOption() {
         this.attributes.speechOutput = 'Je suis passé dans le repète intent';
