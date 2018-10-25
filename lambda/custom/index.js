@@ -9,6 +9,7 @@ const registerPackageHandler = require('./handlers/RegisterPackageHandler');
 const findPackageHandler = require('./handlers/FindPackageHandler');
 const pricePackageHandler = require('./handlers/PricePackageHandler');
 const deletePackageHandler = require('./handlers/DeletePackageHandler');
+const digitHandler = require('./handlers/DigitHandler');
 
 
 const newSessionHandlers = {
@@ -29,7 +30,8 @@ exports.handler = function (event, context) {
         registerPackageHandler,
         findPackageHandler,
         pricePackageHandler,
-        deletePackageHandler
+        deletePackageHandler,
+        digitHandler
     );
     alexa.execute();
 };

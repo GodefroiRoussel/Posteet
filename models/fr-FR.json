@@ -30,7 +30,7 @@
                     ]
                 },
                 {
-                    "name": "PackageNumberIntent",
+                    "name": "FirstNumbers",
                     "slots": [
                         {
                             "name": "letter",
@@ -39,22 +39,10 @@
                         {
                             "name": "number",
                             "type": "AMAZON.NUMBER"
-                        },
-                        {
-                            "name": "firstDigits",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
-                        },
-                        {
-                            "name": "secondDigits",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
-                        },
-                        {
-                            "name": "lastDigits",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
                         }
                     ],
                     "samples": [
-                        "{number} {letter} {firstDigits} {secondDigits} {lastDigits}"
+                        "{number} {letter} "
                     ]
                 },
                 {
@@ -121,6 +109,30 @@
                         "Supprime moi un colis",
                         "Supprimer un colis",
                         "Supprime un colis"
+                    ]
+                },
+                {
+                    "name": "DigitsPackage",
+                    "slots": [
+                        {
+                            "name": "digits",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "{digits}"
+                    ]
+                },
+                {
+                    "name": "LastNumbers",
+                    "slots": [
+                        {
+                            "name": "numbers",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "{numbers}"
                     ]
                 }
             ],
@@ -395,7 +407,7 @@
         "dialog": {
             "intents": [
                 {
-                    "name": "PackageNumberIntent",
+                    "name": "FirstNumbers",
                     "confirmationRequired": true,
                     "prompts": {
                         "confirmation": "Confirm.Intent.1217931163825"
@@ -411,27 +423,6 @@
                         {
                             "name": "number",
                             "type": "AMAZON.NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        },
-                        {
-                            "name": "firstDigits",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        },
-                        {
-                            "name": "secondDigits",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        },
-                        {
-                            "name": "lastDigits",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
                             "confirmationRequired": false,
                             "elicitationRequired": false,
                             "prompts": {}
@@ -465,6 +456,38 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "DigitsPackage",
+                    "confirmationRequired": true,
+                    "prompts": {
+                        "confirmation": "Confirm.Intent.981173315935"
+                    },
+                    "slots": [
+                        {
+                            "name": "digits",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                },
+                {
+                    "name": "LastNumbers",
+                    "confirmationRequired": true,
+                    "prompts": {
+                        "confirmation": "Confirm.Intent.1191838178597"
+                    },
+                    "slots": [
+                        {
+                            "name": "numbers",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
                 }
             ]
         },
@@ -474,7 +497,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Ton numéro de colis est le {number} {letter} {firstDigits} {secondDigits} {lastDigits} , est-ce correct ?"
+                        "value": "Tu as dis {number} {letter} , est-ce correct ?"
                     }
                 ]
             },
@@ -511,6 +534,24 @@
                     {
                         "type": "PlainText",
                         "value": "Avez-vous dit {poids} grammes ?"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Intent.981173315935",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Vous avez dit {digits} , est-ce que vous validez?"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Intent.1191838178597",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Est-ce que vous vouliez dire {numbers} ?"
                     }
                 ]
             }

@@ -5,10 +5,23 @@ const DB = require('../Database/DB');
 
 const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_PACKAGE, {
     Init() {
+        // Init variables that will be implemented
+        this.attributes.firstNumber = "";
+        this.attributes.letter = "";
+        this.attributes.firstDigits = "";
+        this.attributes.secondDigits = "";
+        this.attributes.lastDigits = "";
+
         speechOutput = this.t('INIT_DELETION');
         ResponseHelper.sendResponse(this, `${speechOutput} `, "");
+
     },
-    PackageNumberIntent() {
+    FirstNumbers() {
+        this.attributes.previousHandler = this.handler.state;
+        this.handler.state = config.APP_STATES.DIGIT_PACKAGE;
+        this.emitWithState('FirstNumbers');
+    },
+    endEnterPackageNumber(packageNumber) {
         const confirmationStatus = this.event.request.intent.confirmationStatus;
         if (confirmationStatus === 'NONE') {
             this.emit(':delegate')
@@ -18,20 +31,11 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
         } else {
             const alexa = this;
 
-            const firstNumber = this.event.request.intent.slots.number.value;
-            const letter = this.event.request.intent.slots.letter.value.toUpperCase().charAt(0);
-            const firstDigits = this.event.request.intent.slots.firstDigits.value;
-            const secondDigits = this.event.request.intent.slots.secondDigits.value;
-            const lastDigits = this.event.request.intent.slots.lastDigits.value;
-
-            //TODO: Check slice
-            const packageNumber = `${firstNumber}${letter}${firstDigits}${secondDigits}${lastDigits}`.slice(0, 13);
-
             DB.getSession(alexa.event.context.System.user.userId)
                 .then(session => {
                     if (session.packages) {
-                        if(session.packages.includes(packageNumber)) {
-                            session.packages.splice( session.packages.indexOf(packageNumber), 1 );
+                        if (session.packages.includes(packageNumber)) {
+                            session.packages.splice(session.packages.indexOf(packageNumber), 1);
                             speechOutput = this.t("PACKAGE_DELETED")
                             DB.save(alexa.event.context.System.user.userId, session).then(() => {
                                 ResponseHelper.sendResponse(alexa, `${speechOutput} ${packageNumber}`, "");
@@ -44,7 +48,7 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
                         }
 
                     } else {
-                        this.attributes.speechOutput = this.t("PACKAGES_EMPTY") 
+                        this.attributes.speechOutput = this.t("PACKAGES_EMPTY")
                         this.handler.state = config.APP_STATES.START;
                         this.emitWithState('Menu');
                     }
