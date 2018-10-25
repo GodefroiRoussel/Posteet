@@ -46,8 +46,8 @@ module.exports = {
                 // Delete Package Handler
                 INIT_DELETION: 'Veuillez me donner le numéro de colis que vous souhaitez supprimer. ',
                 PACKAGE_DELETED: "Votre colis a bien été supprimé. ",
-                PACKAGE_DOESNT_EXISTS: "Votre colis n'existe pas",
-                PACKAGES_EMPTY: "Vous n'avez aucun colis enregistré",
+                PACKAGE_DOESNT_EXISTS: "Votre colis n'existe pas. ",
+                PACKAGES_EMPTY: "Vous n'avez aucun colis enregistré. ",
 
                 // Find Package Handler
                 WRONT_TYPE: "Le problème vient de chez nous et nous travaillons actuellement dessus. Merci de votre compréhension. ",

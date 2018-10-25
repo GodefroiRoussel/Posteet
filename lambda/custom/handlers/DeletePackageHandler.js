@@ -33,17 +33,22 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
                         if(session.packages.includes(packageNumber)) {
                             session.packages.splice( session.packages.indexOf(packageNumber), 1 );
                             speechOutput = this.t("PACKAGE_DELETED")
+                            DB.save(alexa.event.context.System.user.userId, session).then(() => {
+                                ResponseHelper.sendResponse(alexa, `${speechOutput} ${packageNumber}`, "");
+                            });
                         }
                         else {
-                            speechOutput = this.t("PACKAGE_DOESNT_EXISTS")
+                            this.attributes.speechOutput = this.t("PACKAGE_DOESNT_EXISTS")
+                            this.handler.state = config.APP_STATES.START;
+                            this.emitWithState('Menu');
                         }
 
                     } else {
-                        speechOutput = this.t("PACKAGES_EMPTY") 
+                        this.attributes.speechOutput = this.t("PACKAGES_EMPTY") 
+                        this.handler.state = config.APP_STATES.START;
+                        this.emitWithState('Menu');
                     }
-                    DB.save(alexa.event.context.System.user.userId, session).then(() => {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} ${packageNumber}`, "");
-                    });
+
                 })
                 .catch(err => {
                     console.log(err);
