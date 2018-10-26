@@ -10,6 +10,7 @@ const findPackageHandler = require('./handlers/FindPackageHandler');
 const pricePackageHandler = require('./handlers/PricePackageHandler');
 const deletePackageHandler = require('./handlers/DeletePackageHandler');
 const digitHandler = require('./handlers/DigitHandler');
+const findClosestOffice = require('./handlers/FindClosestPostingServiceHandler');
 
 
 const newSessionHandlers = {
@@ -31,7 +32,8 @@ exports.handler = function (event, context) {
         findPackageHandler,
         pricePackageHandler,
         deletePackageHandler,
-        digitHandler
+        digitHandler,
+        findClosestOffice
     );
     alexa.execute();
 };

@@ -9,7 +9,13 @@
                 },
                 {
                     "name": "AMAZON.HelpIntent",
-                    "samples": []
+                    "samples": [
+                        "Je demande de l'aide",
+                        "Je demande ton aide",
+                        "Qu'est ce que je dois faire",
+                        "aide",
+                        "aide moi"
+                    ]
                 },
                 {
                     "name": "AMAZON.StopIntent",
@@ -64,6 +70,25 @@
                 {
                     "name": "AMAZON.YesIntent",
                     "samples": []
+                },
+                {
+                    "name": "FindPostingService",
+                    "slots": [],
+                    "samples": [
+                        "Localise l'agence postale la plus proche",
+                        "Quelle est la l'agence postale la plus proche",
+                        "Où se trouve l'agence postale la plus proche",
+                        "Localise la poste la plus proche",
+                        "Quelle est la poste la plus proche",
+                        "Où se trouve la poste la plus proche",
+                        "Localise le bureau de poste le plus proche",
+                        "Quelle est l'adresse du bureau de poste le plus proche",
+                        "Où se trouve le bureau de poste le plus proche",
+                        "Où est le bureau de poste le plus proche",
+                        "Bureau de poste",
+                        "Agence",
+                        "Bureau"
+                    ]
                 },
                 {
                     "name": "FindPackage",
@@ -124,14 +149,10 @@
                         }
                     ],
                     "samples": [
-                        "Je veux connaître le prix d'un paquet de {poids} grammes",
-                        "Je veux savoir le prix d'un paquet de {poids} grammes",
-                        "Prix d'un paquet de {poids} grammes",
-                        "Prix d'un colis de {poids} grammes",
-                        "Dis moi le prix d'un paquet de {poids} grammes",
-                        "Dis moi le prix d'un colis de {poids} grammes",
-                        "Donne moi le prix d'un paquet de {poids} grammes",
-                        "Donne moi le prix d'un colis de {poids} grammes",
+                        "Je veux connaître le prix d'un {package}  de {poids} grammes",
+                        "Je veux savoir le prix d'un {package} de {poids} grammes",
+                        "Prix d'un {package} de {poids} grammes",
+                        "Donne moi le prix d'un {package} de {poids} grammes",
                         "Donne moi le prix d'un {package}",
                         "Dis moi le prix d'un {package} de {poids} grammes",
                         "Dis moi le prix d'un {package}",
@@ -141,8 +162,8 @@
                         "Peux tu me donner le prix d'un {package}",
                         "Je vous connaitre le prix d'un {package} de {poids} grammes",
                         "Je voudrais connaitre le prix d'un {package}",
-                        "Combien coute un colis de {poids} grammes",
-                        "Combien va me coûter un colis de {poids} grammes",
+                        "Combien coute un {package} de {poids} grammes",
+                        "Combien va me coûter un {package} de {poids} grammes",
                         "Quel est le prix d'une {package}",
                         "Quel est le prix d'un {package}",
                         "prix de {package} de {poids} grammes",
@@ -497,10 +518,8 @@
                 },
                 {
                     "name": "PricePackage",
-                    "confirmationRequired": true,
-                    "prompts": {
-                        "confirmation": "Confirm.Intent.701326212486"
-                    },
+                    "confirmationRequired": false,
+                    "prompts": {},
                     "slots": [
                         {
                             "name": "package",
@@ -581,7 +600,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Quel type d'envoie voulez-vous faire ?"
+                        "value": "Quel type d'envoie voulez-vous faire, vous pouvez dire colissimo ou colis ou lettre "
                     }
                 ]
             },

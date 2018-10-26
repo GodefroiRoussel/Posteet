@@ -40,20 +40,23 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
 
                 DB.save(alexa.event.context.System.user.userId, session).then(() => {
                     speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_REGISTERED"))
-                    ResponseHelper.sendResponse(alexa, `${speechOutput} ${packageNumber}`, "");
-                });
+                    ResponseHelper.sendResponse(alexa, `${speechOutput} `, "");
+                })
+                    .catch(err => {
+                        const speechOutput = this.t('AMAZON_ERROR');
+                        console.log(err);
+                        ResponseHelper.sendResponse(alexa, `${speechOutput}`, null, null, null, null, false);
+                    });
             })
             .catch(err => {
                 console.log(err);
+                const speechOutput = this.t('AMAZON_ERROR');
+                ResponseHelper.sendResponse(alexa, `${speechOutput}`, null, null, null, null, false);
             });
-
     },
     FindPackage() {
         this.handler.state = config.APP_STATES.FIND_PACKAGE;
-        this.emitWithState('FindPackage');
-    },
-    Unhandled() {
-        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
+        this.emitWithState('Init');
     },
     'AMAZON.CancelIntent': function stopGame() {
         this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
@@ -63,6 +66,12 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
     'AMAZON.StopIntent': function stopGame() {
         const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
         ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
+    },
+    Unhandled() {
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
+    },
+    'AMAZON.HelpIntent': function helpStart() {
+        ResponseHelper.sendResponse(this, this.t("HELP_MESSAGE_REGISTER"));
     },
 });
 

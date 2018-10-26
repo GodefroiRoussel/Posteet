@@ -34,38 +34,50 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
 
             DB.getSession(alexa.event.context.System.user.userId)
                 .then(session => {
+                    // Redirection to the Start of the application
+                    this.handler.state = config.APP_STATES.START;
+
                     if (session.packages) {
                         if (session.packages.includes(packageNumber)) {
                             session.packages.splice(session.packages.indexOf(packageNumber), 1);
                             speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_DELETED"))
-                            DB.save(alexa.event.context.System.user.userId, session).then(() => {
-                                ResponseHelper.sendResponse(alexa, `${speechOutput} ${packageNumber}`, "");
-                            });
+                            DB.save(alexa.event.context.System.user.userId, session)
+                                .then(() => {
+                                    ResponseHelper.sendResponse(alexa, `${speechOutput}`, "");
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                    ResponseHelper.sendResponse(alexa, `${speechOutput}`, null, null, null, null, false);
+                                    const speechOutput = this.t('AMAZON_ERROR');
+                                });
                         }
                         else {
-                            this.attributes.speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_DOESNT_EXISTS"))
-                            this.handler.state = config.APP_STATES.START;
+                            this.attributes.speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_DOESNT_EXISTS"));
                             this.emitWithState('Menu');
                         }
 
                     } else {
                         this.attributes.speechOutput = SentenceHelper.getSentence(this.t("PACKAGES_EMPTY"))
-                        this.handler.state = config.APP_STATES.START;
                         this.emitWithState('Menu');
                     }
 
                 })
                 .catch(err => {
                     console.log(err);
+                    const speechOutput = this.t('AMAZON_ERROR');
+                    ResponseHelper.sendResponse(alexa, `${speechOutput}`, null, null, null, null, false);
                 });
         }
     },
     FindPackage() {
         this.handler.state = config.APP_STATES.FIND_PACKAGE;
-        this.emitWithState('FindPackage');
+        this.emitWithState('Init');
     },
     Unhandled() {
         ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
+    },
+    'AMAZON.HelpIntent': function helpStart() {
+        ResponseHelper.sendResponse(this, this.t("HELP_MESSAGE_DELETE"))
     },
     'AMAZON.CancelIntent': function stopGame() {
         this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));

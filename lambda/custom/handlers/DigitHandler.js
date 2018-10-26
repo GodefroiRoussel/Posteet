@@ -99,6 +99,16 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
     Unhandled() {
         ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
     },
+    'AMAZON.HelpIntent': function helpEnterNumbers() {
+        let speechOutput = ''
+        if (this.attributes.number === '')
+            speechOutput = this.t('HELP_MESSAGE_NUMBER_LETTER');
+        else if (this.attributes.firstDigits === '' || this.attributes.secondDigits === '')
+            speechOutput = this.t('HELP_MESSAGE_DIGIT');
+        else
+            speechOutput = this.t('HELP_MESSAGE_NUMBER');
+        ResponseHelper.sendResponse(this, speechOutput, null)
+    },
     'AMAZON.CancelIntent': function stopGame() {
         this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
         this.handler.state = config.APP_STATES.START;

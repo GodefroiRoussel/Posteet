@@ -12,71 +12,73 @@ var instance = axios.create({
 });
 
 const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKAGE, {
-    FindPackage() {
+    Init() {
         const alexa = this;
-
+        // Check if we can find a package
         DB.getSession(alexa.event.context.System.user.userId)
             .then(session => {
                 if (session.packages) {
-                    if (session.packages.length == 1) {
-                        const packageNumber = session.packages[0];
-                        let speechOutput = SentenceHelper.getSentence(this.t("ONE_PACKAGE_REGISTER"));
-
-                        return instance.get(`suivi/v1/${packageNumber}`)
-                            .then((response) => {
-                                speechOutput += response.data.message
-                                // OK
-                                if (response.status === 200) {
-                                    this.handler.state = config.APP_STATES.START;
-                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . Le colis ${packageNumber} ${SentenceHelper.getSentence(this.t("ASK_OTHER_ACTION"))} `, "");
-                                    // Wrong Package Code Type Sent
-                                } else if (response.status === 400) {
-                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("WRONT_TYPE"))} `, "");
-                                    // Package Not Found
-                                } else if (response.status === 404) {
-                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("TRY_ANOTHER_PACKAGE_NUMBER"))} `, "");
-                                }
-                            })
-                            .catch(err => {
-                                console.log(err)
-                                ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("API_PROBLEM"))} `, "");
-                            })
-
-                    } else {
-                        let speechOutput = SentenceHelper.getSentence(this.t("MANY_PACKAGES_REGISTER"));
-                        return instance.get(`suivi/v1/list?codes=${session.packages.join(',')}`)
-                            .then((response) => {
-                                response.data.map(obj => {
-                                    if (obj.data) {
-                                        speechOutput += `Colis ${obj.data.code} : ${obj.data.message} <break time="0.5s"/>`
-                                    } else {
-                                        speechOutput += ' ERREUR '
-                                    }
-                                })
-                                ResponseHelper.sendResponse(alexa, `${speechOutput}`, "");
-                            })
-                            .catch(err => {
-                                ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("API_PROBLEM"))} `, "");
-                            })
-                    }
+                    alexa.emitWithState('FindPackage', session)
                 } else {
-                    let speechOutput = SentenceHelper.getSentence(this.t("NO_PACKAGE_REGISTER"));
+                    alexa.handler.state = config.APP_STATES.START
+
+                    const speechOutput = SentenceHelper.getSentence(alexa.t("NO_PACKAGE_REGISTER"));
                     ResponseHelper.sendResponse(alexa, `${speechOutput}`, "");
                 }
             })
+            .catch(err => {
+                console.log(err)
+                const speechOutput = alexa.t('AMAZON_ERROR');
+                ResponseHelper.sendResponse(alexa, `${speechOutput}`, null, null, null, null, false);
+            })
     },
-    Unhandled() {
-        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
-    },
-    'AMAZON.CancelIntent': function stopGame() {
-        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
-        this.handler.state = config.APP_STATES.START;
-        this.emitWithState('Menu');
-    },
-    'AMAZON.StopIntent': function stopGame() {
-        const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
-        ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
-    },
+    FindPackage(session) {
+        const alexa = this;
+        // We will go back to the start state after sending the response
+        this.handler.state = config.APP_STATES.START
+
+        if (session.packages.length == 1) {
+            const packageNumber = session.packages[0];
+            let speechOutput = SentenceHelper.getSentence(this.t("ONE_PACKAGE_REGISTER"));
+
+            return instance.get(`suivi/v1/${packageNumber}`)
+                .then((response) => {
+                    speechOutput += response.data.message
+                    // OK
+                    if (response.status === 200) {
+                        ResponseHelper.sendResponse(alexa, `${speechOutput} . Le colis ${packageNumber} ${SentenceHelper.getSentence(this.t("ASK_OTHER_ACTION"))} `, "");
+                        // Wrong Package Code Type Sent
+                    } else if (response.status === 400) {
+                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("WRONT_TYPE"))} `, "");
+                        // Package Not Found
+                    } else if (response.status === 404) {
+                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("TRY_ANOTHER_PACKAGE_NUMBER"))} `, "");
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("API_PROBLEM"))} `, "");
+                })
+
+        } else {
+            let speechOutput = SentenceHelper.getSentence(this.t("MANY_PACKAGES_REGISTER"));
+            return instance.get(`suivi/v1/list?codes=${session.packages.join(',')}`)
+                .then((response) => {
+                    response.data.map(obj => {
+                        if (obj.data) {
+                            speechOutput += `Colis ${obj.data.code} : ${obj.data.message} <break time="0.5s"/>`
+                        } else {
+                            speechOutput += "Erreur ce colis n'existe pas. "
+                        }
+                    })
+                    ResponseHelper.sendResponse(alexa, `${speechOutput}`, "");
+                })
+                .catch(err => {
+                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("API_PROBLEM"))} `, null, null, null, null, false);
+                });
+        }
+    }
+    //No need of Amazon Intent here because we always go to another handler when sending a response
 });
 
 module.exports = findPackageHandler;
