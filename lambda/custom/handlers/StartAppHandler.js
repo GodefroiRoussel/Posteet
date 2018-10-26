@@ -45,6 +45,10 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
         this.handler.state = config.APP_STATES.DELETE_PACKAGE;
         this.emitWithState('Init');
     },
+    FindPostingService() {
+        this.handler.state = config.APP_STATES.FIND_POSTING_SERVICE;
+        this.emitWithState('Init');
+    },
     'AMAZON.RepeatIntent': function RepeatOption() {
         this.attributes.speechOutput = 'Je suis passé dans le repète intent';
         this.emitWithState('Menu');

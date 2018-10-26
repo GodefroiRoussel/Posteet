@@ -23,18 +23,6 @@
                     "name": "RegisterPackage",
                     "slots": [],
                     "samples": [
-                        "Enregistrer",
-                        "Enregistre un nouveau paquet",
-                        "Tu peux m'enregistrer un paquet",
-                        "Je veux enregistrer un paquet",
-                        "Enregistre moi un paquet",
-                        "Je peux enregistrer un paquet",
-                        "Je veux enregistrer un nouveau paquet",
-                        "Je veux enregistrer un nouveau colis",
-                        "Enregistre un nouveau colis",
-                        "Tu peux m'enregistrer un colis ",
-                        "Je veux enregistrer un colis",
-                        "Je peux enregistrer un colis ",
                         "Enregistre une commande",
                         "Enregistre un colis",
                         "Enregistre moi un colis",
@@ -42,7 +30,7 @@
                     ]
                 },
                 {
-                    "name": "FirstNumbers",
+                    "name": "PackageNumberIntent",
                     "slots": [
                         {
                             "name": "letter",
@@ -51,10 +39,22 @@
                         {
                             "name": "number",
                             "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "firstDigits",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
+                        },
+                        {
+                            "name": "secondDigits",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
+                        },
+                        {
+                            "name": "lastDigits",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
                         }
                     ],
                     "samples": [
-                        "{number} {letter} "
+                        "{number} {letter} {firstDigits} {secondDigits} {lastDigits}"
                     ]
                 },
                 {
@@ -69,26 +69,6 @@
                     "name": "FindPackage",
                     "slots": [],
                     "samples": [
-                        "Je veux savoir où est mon colis",
-                        "Dis moi où est mon paquet",
-                        "Je veux savoir où est mon paquet",
-                        "Suivi paquet",
-                        "Je veux suivre mon paquet",
-                        "Trouve moi mon paquet",
-                        "Trouve mon paquet",
-                        "Peux tu me dire où est mon paquet",
-                        "Où est mon paquet",
-                        "Localise paquet",
-                        "Localise colis",
-                        "Localiser colis",
-                        "Localisation colis",
-                        "Localise mon colis",
-                        "Localiser mon colis",
-                        "A quel endroit se trouve mon colis",
-                        "Où sont mes colis",
-                        "Je veux suivre mon colis",
-                        "Suivre colis",
-                        "Suivi colis",
                         "Trouve mon colis",
                         "Trouve moi un colis",
                         "Dis moi où se trouve mon colis",
@@ -124,27 +104,6 @@
                         }
                     ],
                     "samples": [
-                        "Je veux connaître le prix d'un paquet de {poids} grammes",
-                        "Je veux savoir le prix d'un paquet de {poids} grammes",
-                        "Prix d'un paquet de {poids} grammes",
-                        "Prix d'un colis de {poids} grammes",
-                        "Dis moi le prix d'un paquet de {poids} grammes",
-                        "Dis moi le prix d'un colis de {poids} grammes",
-                        "Donne moi le prix d'un paquet de {poids} grammes",
-                        "Donne moi le prix d'un colis de {poids} grammes",
-                        "Donne moi le prix d'un {package}",
-                        "Dis moi le prix d'un {package} de {poids} grammes",
-                        "Dis moi le prix d'un {package}",
-                        "Je voudrais connaître le prix d'un {package} de {poids} grammes",
-                        "Je voudrais connaître le prix d'un {package}",
-                        "Peux tu me donner le prix d'un {package} de {poids} grammes",
-                        "Peux tu me donner le prix d'un {package}",
-                        "Je vous connaitre le prix d'un {package} de {poids} grammes",
-                        "Je voudrais connaitre le prix d'un {package}",
-                        "Combien coute un colis de {poids} grammes",
-                        "Combien va me coûter un colis de {poids} grammes",
-                        "Quel est le prix d'une {package}",
-                        "Quel est le prix d'un {package}",
                         "prix de {package} de {poids} grammes",
                         "prix {package} de {poids} grammes",
                         "prix",
@@ -156,49 +115,19 @@
                     ]
                 },
                 {
-                    "name": "DeletePackage",
+                    "name": "FindPostingService",
                     "slots": [],
                     "samples": [
-                        "Supprime moi un paquet",
-                        "Je veux supprimer un paquet",
-                        "Je veux supprimer un colis",
-                        "Supprime paquet",
-                        "Supprimer paquet",
-                        "Supprime colis",
-                        "Supprimer colis",
-                        "Est-ce que tu peux supprimer le paquet",
-                        "Supprime un paquet",
-                        "Je veux supprimer un de mes paquets",
-                        "Supprime le colis",
-                        "Est-ce que tu peux supprimer le colis",
-                        "Je veux supprimer un de mes colis",
-                        "Supprime moi un colis",
-                        "Supprimer un colis",
-                        "Supprime un colis"
-                    ]
-                },
-                {
-                    "name": "DigitsPackage",
-                    "slots": [
-                        {
-                            "name": "digits",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
-                        }
-                    ],
-                    "samples": [
-                        "{digits}"
-                    ]
-                },
-                {
-                    "name": "LastNumbers",
-                    "slots": [
-                        {
-                            "name": "numbers",
-                            "type": "AMAZON.NUMBER"
-                        }
-                    ],
-                    "samples": [
-                        "{numbers}"
+                        "Localise l agence postale la plus proche",
+                        "Quelle est la l agence postale la plus proche",
+                        "Où se trouve l agence postale la plus proche",
+                        "Localise la poste la plus proche",
+                        "Quelle est la poste la plus proche",
+                        "Où se trouve la poste la plus proche",
+                        "Localise le bureau de poste le plus proche",
+                        "Quelle est l adresse du bureau de poste le plus proche",
+                        "Où se trouve le bureau de poste le plus proche",
+                        "Où est le bureau de poste le plus proche"
                     ]
                 }
             ],
@@ -473,7 +402,7 @@
         "dialog": {
             "intents": [
                 {
-                    "name": "FirstNumbers",
+                    "name": "PackageNumberIntent",
                     "confirmationRequired": true,
                     "prompts": {
                         "confirmation": "Confirm.Intent.1217931163825"
@@ -489,6 +418,27 @@
                         {
                             "name": "number",
                             "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "firstDigits",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "secondDigits",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "lastDigits",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
                             "confirmationRequired": false,
                             "elicitationRequired": false,
                             "prompts": {}
@@ -522,38 +472,6 @@
                             }
                         }
                     ]
-                },
-                {
-                    "name": "DigitsPackage",
-                    "confirmationRequired": true,
-                    "prompts": {
-                        "confirmation": "Confirm.Intent.981173315935"
-                    },
-                    "slots": [
-                        {
-                            "name": "digits",
-                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        }
-                    ]
-                },
-                {
-                    "name": "LastNumbers",
-                    "confirmationRequired": true,
-                    "prompts": {
-                        "confirmation": "Confirm.Intent.1191838178597"
-                    },
-                    "slots": [
-                        {
-                            "name": "numbers",
-                            "type": "AMAZON.NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        }
-                    ]
                 }
             ]
         },
@@ -563,7 +481,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Tu as dis {number} {letter} , est-ce correct ?"
+                        "value": "Ton numéro de colis est le {number} {letter} {firstDigits} {secondDigits} {lastDigits} , est-ce correct ?"
                     }
                 ]
             },
@@ -600,24 +518,6 @@
                     {
                         "type": "PlainText",
                         "value": "Avez-vous dit {poids} grammes ?"
-                    }
-                ]
-            },
-            {
-                "id": "Confirm.Intent.981173315935",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Vous avez dit {digits} , est-ce que vous validez?"
-                    }
-                ]
-            },
-            {
-                "id": "Confirm.Intent.1191838178597",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Est-ce que vous vouliez dire {numbers} ?"
                     }
                 ]
             }
