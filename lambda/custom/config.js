@@ -51,6 +51,8 @@ module.exports = {
                 RETRIEVE_INFO_PACKAGE: "Vous pouvez savoir où se trouve un de vos colis enregistrés. ",
                 OPTIONS_MESSAGE: 'Quel service souhaitez-vous demander? Vous pouvez enregistrer un colis ou bien retrouver un colis enregistré précédemment. ',
                 HELP_MESSAGE_MENU: "Vous vous trouvez sur le menu de l'application. Vous pouvez faire ces différentes actions. ",
+                FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche en disant 'Alexa où se trouve le bureau le plus proche'. ",
+                PRICE_PACKAGE: "Enfin, vous pouvez connaître le prix d'un colis. ",
 
                 // Register Package Handler
                 INIT_REGISTRATION: ['On va maintenant enregistrer votre colis. Veuillez me donner votre numéro de colis. ',

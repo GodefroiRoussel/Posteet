@@ -21,6 +21,8 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
                     speechOutput += this.t('RETRIEVE_INFO_PACKAGE');
                     speechOutput += this.t('DELETE_PACKAGE');
                 }
+                speechOutput += this.t("FIND_POSTE")
+                speechOutput += this.t("PRICE_PACKAGE")
                 DB.save(alexa.event.context.System.user.userId, session).then(() => {
                     ResponseHelper.sendResponse(alexa, `${speechOutput}`, this.t('OPTIONS_MESSAGE'));
                 });
