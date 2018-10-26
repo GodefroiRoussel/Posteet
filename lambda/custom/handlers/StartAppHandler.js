@@ -5,7 +5,7 @@ const SentenceHelper = require('../Helpers/SentenceHelper');
 const DB = require('../Database/DB');
 
 const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
-    Welcome() {        
+    Welcome() {
         this.attributes.speechOutput = this.t('WELCOME_APP_MESSAGE', this.t('APP_NAME'));
         this.attributes.speechOutput += this.t('WELCOME_MESSAGE');
         this.emitWithState('Menu');
@@ -35,7 +35,7 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
     },
     FindPackage() {
         this.handler.state = config.APP_STATES.FIND_PACKAGE;
-        this.emitWithState('FindPackage');
+        this.emitWithState('Init');
     },
     PricePackage() {
         this.handler.state = config.APP_STATES.PRICE_PACKAGE;
@@ -50,16 +50,18 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
         this.emitWithState('Init');
     },
     'AMAZON.RepeatIntent': function RepeatOption() {
-        this.attributes.speechOutput = 'Je suis passé dans le repète intent';
+        this.attributes.speechOutput = 'Très bien, vous ';
         this.emitWithState('Menu');
     },
     Unhandled() {
         ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
     },
+    'AMAZON.HelpIntent': function helpStart() {
+        this.attributes.speechOutput = this.t("HELP_MESSAGE_MENU");
+        this.emitWithState('Menu');
+    },
     'AMAZON.StopIntent': function stopGame() {
-        const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
-        this.response.speak(speechOutput).listen(speechOutput);
-        this.emit(':responseReady');
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('STOP_MESSAGE')))
     },
 });
 

@@ -14,27 +14,27 @@ var instance = axios.create({
 const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PACKAGE, {
     PricePackage() {
         const alexa = this;
-        if(this.event.request.dialogState != 'COMPLETED'){
+        if (this.event.request.dialogState != 'COMPLETED') {
             this.emit(':delegate');
         }
-        else{
-            let speechOutput="Vous avez ";
+        else {
+            let speechOutput = "Vous avez ";
             const package = alexa.event.request.intent.slots.package.value;
             const weight = alexa.event.request.intent.slots.poids.value;
             return instance.get(`tarifenvoi/v1?type=${package}&poids=${weight}`)
                 .then((response) => {
                     response.data.forEach(element => {
-                        speechOutput += element.product+" ";
-                        if(element.channel=="bureau"){
+                        speechOutput += element.product + " ";
+                        if (element.channel == "bureau") {
                             speechOutput += " en bureau de poste ";
                         }
-                        else if (element.channel== " en ligne "){
-                            speechOutput +=" en ligne ";
+                        else if (element.channel == " en ligne ") {
+                            speechOutput += " en ligne ";
                         }
-                        else{
-                            speechOutput+=" "+element.channel+" ";
+                        else {
+                            speechOutput += " " + element.channel + " ";
                         }
-                        speechOutput += " à "+element.price+" "+element.currency+".<break time='1s'/>";
+                        speechOutput += " à " + element.price + " " + element.currency + ".<break time='1s'/>";
                     });
                     console.log(speechOutput);
                     // OK
@@ -60,6 +60,9 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
         this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
         this.handler.state = config.APP_STATES.START;
         this.emitWithState('Menu');
+    },
+    'AMAZON.HelpIntent': function helpStart() {
+        ResponseHelper.sendResponse(this, this.t("HELP_MESSAGE_PRICE_PACKAGE"));
     },
     'AMAZON.StopIntent': function stopGame() {
         const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
