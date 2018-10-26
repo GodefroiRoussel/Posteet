@@ -26,34 +26,28 @@ var instanceAlexaApi = axios.create({
 
 
 const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_POSTING_SERVICE, {
-    async PostingServiceIntent(){
+    async PostingServiceIntent() {
+
+        const alexa = this;
 
         //fetch user address 
-        deviceId = this.event.context.System.device.deviceId
-        accessToken = this.event.context.System.apiAccessToken
+        deviceId = alexa.event.context.System.device.deviceId
+        accessToken = alexa.event.context.System.apiAccessToken
 
         instanceAlexaApi.headers({ 'Authorization': "Bearer " + accessToken })
         const PERMISSIONS = ['read::alexa:device:all:address'];
         
         const userAddressRequest = await instanceAlexaApi.get(`/v1/devices/${deviceId}/settings/address`)
         if (userAddressRequest.status == 403) {
-            return responseBuilder
-            .speak(config.NOTIFY_MISSING_PERMISSIONS)
-            .getResponse();
+            ResponseHelper.sendResponse(alexa, config.NOTIFY_MISSING_PERMISSIONS);
         }
         
         const userAddress = userAddressRequest.data;
         if (userAddress.addressLine1 == null || userAddress.addressLine1 == "") {
-            return responseBuilder
-            .speak(config.NO_ADDRESS)
-            .getResponse();
+            ResponseHelper.sendResponse(alexa, config.NO_ADDRESS);
         }
 
-
-        // check if it is the address ?
-
-        // fetch postal services adresses
-        const postAddresses;
+        let postAddresses;
         if(userAddress.postalCode) postAddresses = await instance.get(`/datanova/v1/pointscontact?q=${userAddress.postalCode}`) 
         else if(userAddress.city) postAddresses = await instance.get(`/datanova/v1/pointscontact?q=${userAddress.city}`) 
         else return responseBuilder.speak(config.NO_ADDRESS).getResponse();
@@ -73,26 +67,23 @@ const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STA
 
         const nearest = addressArray.indexOf(distances.indexOf(smallest));
 
-        //append all adresses with the user's address being the first 
+        let speechOutput = alexa.t("NEAREST_OFFICE_DISTANCE") + smallest + "kilomètres" + alexa.t("NEAREST_OFFICE_ADDRESS") + nearest;``
+        ResponseHelper.sendResponse(alexa, speechOutput);
 
-        // find the closest one using the api 
-
-        // return the closest address
-        }
     }
+    ,
+    Unhandled() {
+        ResponseHelper.sendResponse(this, this.t('UNHANDLE_MESSAGE'));
+    },
+    'AMAZON.CancelIntent': function stopGame() {
+        this.attributes.speechOutput = this.t("CANCEL_MESSAGE");
+        this.handler.state = config.APP_STATES.START;
+        this.emitWithState('Menu');
+    },
+    'AMAZON.StopIntent': function stopGame() {
+        const speechOutput = this.t('STOP_MESSAGE');
+        ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
+    },
+})
 
-,
-Unhandled() {
-    ResponseHelper.sendResponse(this, this.t('UNHANDLE_MESSAGE'));
-},
-'AMAZON.CancelIntent': function stopGame() {
-    this.attributes.speechOutput = this.t("CANCEL_MESSAGE");
-    this.handler.state = config.APP_STATES.START;
-    this.emitWithState('Menu');
-},
-'AMAZON.StopIntent': function stopGame() {
-    const speechOutput = this.t('STOP_MESSAGE');
-    ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
-},
-)},
 module.exports = findClosestPostingServiceHandler;

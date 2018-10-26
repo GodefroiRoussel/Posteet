@@ -63,9 +63,11 @@ module.exports = {
                 ONE_PACKAGE_REGISTER: "Vous avez actuellement un seul colis enregistré. ",
                 MANY_PACKAGES_REGISTER: "Vous avez actuellement plusieurs colis déjà enregistré, je vais faire une recherche pour chaque colis. ",
                 NO_PACKAGE_REGISTER: "Vous n'avez pas de colis déjà enregistré, veuillez me donner le numéro de colis que je dois chercher. ",
-                NOTIFY_MISSING_PERMISSIONS: "Veuillez accepter de fournir votre position via l'application Alexa",
+                NOTIFY_MISSING_PERMISSIONS: "Veuillez nous permettre d'accéder à votre adresse depuis votre application Alexa",
                 NO_ADDRESS: "Il semblerait que vous n'avez pas renseigné votre adresse. Vous pouvez le faire depuis votre application Alexa.",
-                DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard"
+                DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard",
+                NEAREST_OFFICE_ADDRESS: "A l'adresse suivante : ",
+                NEAREST_OFFICE_DISTANCE: "Le bureau de poste le plus proche est situé à "
             }
         }
     }
