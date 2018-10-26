@@ -1,6 +1,11 @@
 module.exports = {
     DYNAMODB_TABLE: 'Posteet',
     API_KEY: 'RIyLQtfaUXefAhM60nqT6Bcy63Fn2v73kEYW5TINBUWvlyGnD1Gk2W3CgQKlH/IP',
+    DISTANCE_API_KEY: 'c7SPFYk2naeqwlAxGfJlHYi9426VVnBk',
+   
+    ALAXA_API :{
+        HOST : "api.amazonalexa.com"
+    },
 
     APP_STATES: {
         START: "_START", // Entry point, start the application.
@@ -9,6 +14,7 @@ module.exports = {
         PRICE_PACKAGE: "_PRICE_PACKAGE",
         DELETE_PACKAGE: "_DELETE_PACKAGE",
         DIGIT_PACKAGE: "_DIGIT_PACKAGE",
+        FIND_POSTING_SERVICE: "_FIND_POSTING_SERVICE",
     },
     AUDIO: src => `<audio src="${src}"/>`,
 
@@ -78,6 +84,13 @@ module.exports = {
                 NO_PACKAGE_REGISTER: ["Vous n'avez pas de colis déjà enregistré, veuillez me donner le numéro de colis que je dois chercher. ",
                 "Il y a actuellement aucun colis enregistré. Veuillez me donner le numéro de colis que je dois chercher. ", 
                 "Il n'y a aucun colis enregistré. Donnez moi le numéro de colis que je dois chercher. "],
+
+                =======         // Find Closest Posting Service Handler
+                NOTIFY_MISSING_PERMISSIONS: "Veuillez nous permettre d'accéder à votre adresse depuis votre application Alexa",
+                NO_ADDRESS: "Il semblerait que vous n'avez pas renseigné votre adresse. Vous pouvez le faire depuis votre application Alexa.",
+                DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard",
+                NEAREST_OFFICE_ADDRESS: "A l'adresse suivante : ",
+                NEAREST_OFFICE_DISTANCE: "Le bureau de poste le plus proche est situé à "
 
             }
         }
