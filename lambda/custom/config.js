@@ -1,6 +1,11 @@
 module.exports = {
     DYNAMODB_TABLE: 'Posteet',
     API_KEY: 'RIyLQtfaUXefAhM60nqT6Bcy63Fn2v73kEYW5TINBUWvlyGnD1Gk2W3CgQKlH/IP',
+    DISTANCE_API_KEY: 'c7SPFYk2naeqwlAxGfJlHYi9426VVnBk',
+   
+    ALAXA_API :{
+        HOST : "api.amazonalexa.com"
+    },
 
     APP_STATES: {
         START: "_START", // Entry point, start the application.
@@ -9,6 +14,7 @@ module.exports = {
         PRICE_PACKAGE: "_PRICE_PACKAGE",
         DELETE_PACKAGE: "_DELETE_PACKAGE",
         DIGIT_PACKAGE: "_DIGIT_PACKAGE",
+        FIND_POSTING_SERVICE: "_FIND_POSTING_SERVICE",
     },
     AUDIO: src => `<audio src="${src}"/>`,
 
@@ -57,7 +63,9 @@ module.exports = {
                 ONE_PACKAGE_REGISTER: "Vous avez actuellement un seul colis enregistré. ",
                 MANY_PACKAGES_REGISTER: "Vous avez actuellement plusieurs colis déjà enregistré, je vais faire une recherche pour chaque colis. ",
                 NO_PACKAGE_REGISTER: "Vous n'avez pas de colis déjà enregistré, veuillez me donner le numéro de colis que je dois chercher. ",
-
+                NOTIFY_MISSING_PERMISSIONS: "Veuillez accepter de fournir votre position via l'application Alexa",
+                NO_ADDRESS: "Il semblerait que vous n'avez pas renseigné votre adresse. Vous pouvez le faire depuis votre application Alexa.",
+                DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard"
             }
         }
     }
