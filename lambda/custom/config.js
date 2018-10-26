@@ -3,10 +3,6 @@ module.exports = {
     API_KEY: 'RIyLQtfaUXefAhM60nqT6Bcy63Fn2v73kEYW5TINBUWvlyGnD1Gk2W3CgQKlH/IP',
     DISTANCE_API_KEY: 'c7SPFYk2naeqwlAxGfJlHYi9426VVnBk',
    
-    ALAXA_API :{
-        HOST : "api.amazonalexa.com"
-    },
-
     APP_STATES: {
         START: "_START", // Entry point, start the application.
         REGISTER_PACKAGE: "_REGISTER_PACKAGE",
@@ -22,7 +18,7 @@ module.exports = {
     WAIT_RESPONSE_SOUND: 'https://s3-eu-west-1.amazonaws.com/alexasoundstrivia/wait_sound.mp3',
     IMAGE_BACKGROUND_URL: 'http://www.galwaytourcompany.com/wp-content/uploads/2017/10/Connemara-Wild-Atlantic-Way.jpg',
 
-    APP_ID: 'amzn1.ask.skill.8589531b-402f-4178-8202-ba354200d2c3', // TODO replace with your app ID
+    APP_ID: 'amzn1.ask.skill.0cd3418e-771a-4120-8120-d1dcdb6beaa1', // TODO replace with your app ID
 
     languageString: {
         "fr-FR": {
@@ -90,9 +86,9 @@ module.exports = {
                     "Il n'y a aucun colis enregistré. Donnez moi le numéro de colis que je dois chercher. "],
 
                 // Find Closest Posting Service Handler
-                NOTIFY_MISSING_PERMISSIONS: "Veuillez nous permettre d'accéder à votre adresse depuis votre application Alexa",
-                NO_ADDRESS: "Il semblerait que vous n'avez pas renseigné votre adresse. Vous pouvez le faire depuis votre application Alexa.",
-                DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard",
+                NOTIFY_MISSING_PERMISSIONS: "Je ne peux pas accéder à votre adresse. Veuillez le permettre depuis votre application Alexa ",
+                NO_ADDRESS: "Il semblerait que vous n'avez pas renseigné votre adresse. Vous pouvez le faire depuis votre application Alexa. ",
+                DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard ",
                 NEAREST_OFFICE_ADDRESS: "A l'adresse suivante : ",
                 NEAREST_OFFICE_DISTANCE: "Le bureau de poste le plus proche est situé à ",
 

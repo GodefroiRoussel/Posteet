@@ -75,16 +75,19 @@
                     "name": "FindPostingService",
                     "slots": [],
                     "samples": [
-                        "Localise l agence postale la plus proche",
-                        "Quelle est la l agence postale la plus proche",
-                        "Où se trouve l agence postale la plus proche",
+                        "Localise l'agence postale la plus proche",
+                        "Quelle est la l'agence postale la plus proche",
+                        "Où se trouve l'agence postale la plus proche",
                         "Localise la poste la plus proche",
                         "Quelle est la poste la plus proche",
                         "Où se trouve la poste la plus proche",
                         "Localise le bureau de poste le plus proche",
-                        "Quelle est l adresse du bureau de poste le plus proche",
+                        "Quelle est l'adresse du bureau de poste le plus proche",
                         "Où se trouve le bureau de poste le plus proche",
-                        "Où est le bureau de poste le plus proche"
+                        "Où est le bureau de poste le plus proche",
+                        "Bureau de poste",
+                        "Agence",
+                        "Bureau"
                     ]
                 },
                 {

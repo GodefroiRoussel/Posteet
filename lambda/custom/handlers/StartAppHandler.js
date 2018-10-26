@@ -47,7 +47,7 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
     },
     FindPostingService() {
         this.handler.state = config.APP_STATES.FIND_POSTING_SERVICE;
-        this.emitWithState('Init');
+        this.emitWithState('PostingServiceIntent');
     },
     'AMAZON.RepeatIntent': function RepeatOption() {
         this.attributes.speechOutput = 'Très bien, vous ';
