@@ -1,7 +1,7 @@
-const getString = function stringGenerator(alexa, string, ...params) {
-    const args = [string];
-    args.concat(params);
-    const res = alexa.t(...args);
-};
+function getSentence(myArray) {
+    var randomItem = myArray[Math.floor(Math.random()*myArray.length)];
+    return randomItem
+}
 
-module.exports = { getString };
+
+module.exports = { getSentence };

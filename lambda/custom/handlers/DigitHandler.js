@@ -1,6 +1,7 @@
 const Alexa = require('alexa-sdk');
 const config = require('../config');
 const ResponseHelper = require('../Helpers/ResponseHelper');
+const SentenceHelper = require('../Helpers/SentenceHelper');
 const DB = require('../Database/DB');
 
 const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
@@ -38,7 +39,7 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
         if (confirmationStatus === 'NONE') {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
-            speechOutput = this.t('WRONG_UNDERSTANDING_PACKAGE');
+            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
             ResponseHelper.sendResponse(this, `${speechOutput}`, "");
         } else {
             // Fill the first number and the letter
@@ -52,7 +53,7 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
         if (confirmationStatus === 'NONE') {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
-            speechOutput = this.t('WRONG_UNDERSTANDING_PACKAGE');
+            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
             ResponseHelper.sendResponse(this, `${speechOutput}`, "");
         } else {
             let i = 0;
@@ -76,7 +77,7 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
         if (confirmationStatus === 'NONE') {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
-            speechOutput = this.t('WRONG_UNDERSTANDING_PACKAGE');
+            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
             ResponseHelper.sendResponse(this, `${speechOutput}`, "");
         } else {
             let i = 0;
@@ -96,15 +97,15 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
         }
     },
     Unhandled() {
-        ResponseHelper.sendResponse(this, this.t('UNHANDLE_MESSAGE'));
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
     },
     'AMAZON.CancelIntent': function stopGame() {
-        this.attributes.speechOutput = this.t("CANCEL_MESSAGE");
+        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
         this.handler.state = config.APP_STATES.START;
         this.emitWithState('Menu');
     },
     'AMAZON.StopIntent': function stopGame() {
-        const speechOutput = this.t('STOP_MESSAGE');
+        const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
         ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
     },
 });

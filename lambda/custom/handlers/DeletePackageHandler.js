@@ -1,6 +1,7 @@
 const Alexa = require('alexa-sdk');
 const config = require('../config');
 const ResponseHelper = require('../Helpers/ResponseHelper');
+const SentenceHelper = require('../Helpers/SentenceHelper');
 const DB = require('../Database/DB');
 
 const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_PACKAGE, {
@@ -12,7 +13,7 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
         this.attributes.secondDigits = "";
         this.attributes.lastDigits = "";
 
-        speechOutput = this.t('INIT_DELETION');
+        speechOutput = SentenceHelper.getSentence(this.t('INIT_DELETION'));
         ResponseHelper.sendResponse(this, `${speechOutput} `, "");
 
     },
@@ -26,7 +27,7 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
         if (confirmationStatus === 'NONE') {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
-            speechOutput = this.t('WRONG_UNDERSTANDING_PACKAGE');
+            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
             ResponseHelper.sendResponse(this, `${speechOutput}`, "");
         } else {
             const alexa = this;
@@ -36,19 +37,19 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
                     if (session.packages) {
                         if (session.packages.includes(packageNumber)) {
                             session.packages.splice(session.packages.indexOf(packageNumber), 1);
-                            speechOutput = this.t("PACKAGE_DELETED")
+                            speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_DELETED"))
                             DB.save(alexa.event.context.System.user.userId, session).then(() => {
                                 ResponseHelper.sendResponse(alexa, `${speechOutput} ${packageNumber}`, "");
                             });
                         }
                         else {
-                            this.attributes.speechOutput = this.t("PACKAGE_DOESNT_EXISTS")
+                            this.attributes.speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_DOESNT_EXISTS"))
                             this.handler.state = config.APP_STATES.START;
                             this.emitWithState('Menu');
                         }
 
                     } else {
-                        this.attributes.speechOutput = this.t("PACKAGES_EMPTY")
+                        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("PACKAGES_EMPTY"))
                         this.handler.state = config.APP_STATES.START;
                         this.emitWithState('Menu');
                     }
@@ -64,15 +65,15 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
         this.emitWithState('FindPackage');
     },
     Unhandled() {
-        ResponseHelper.sendResponse(this, this.t('UNHANDLE_MESSAGE'));
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
     },
     'AMAZON.CancelIntent': function stopGame() {
-        this.attributes.speechOutput = this.t("CANCEL_MESSAGE");
+        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
         this.handler.state = config.APP_STATES.START;
         this.emitWithState('Menu');
     },
     'AMAZON.StopIntent': function stopGame() {
-        const speechOutput = this.t('STOP_MESSAGE');
+        const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
         ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
     },
 });

@@ -2,6 +2,7 @@ const Alexa = require('alexa-sdk');
 const axios = require('axios');
 const config = require('../config');
 const ResponseHelper = require('../Helpers/ResponseHelper');
+const SentenceHelper = require('../Helpers/SentenceHelper');
 const DB = require('../Database/DB');
 
 var instance = axios.create({
@@ -19,7 +20,7 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
                 if (session.packages) {
                     if (session.packages.length == 1) {
                         const packageNumber = session.packages[0];
-                        let speechOutput = this.t("ONE_PACKAGE_REGISTER");
+                        let speechOutput = SentenceHelper.getSentence(this.t("ONE_PACKAGE_REGISTER"));
 
                         return instance.get(`suivi/v1/${packageNumber}`)
                             .then((response) => {
@@ -27,22 +28,22 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
                                 // OK
                                 if (response.status === 200) {
                                     this.handler.state = config.APP_STATES.START;
-                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . Le colis ${packageNumber} ${this.t("ASK_OTHER_ACTION")} `, "");
+                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . Le colis ${packageNumber} ${SentenceHelper.getSentence(this.t("ASK_OTHER_ACTION"))} `, "");
                                     // Wrong Package Code Type Sent
                                 } else if (response.status === 400) {
-                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("WRONT_TYPE")} `, "");
+                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("WRONT_TYPE"))} `, "");
                                     // Package Not Found
                                 } else if (response.status === 404) {
-                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("TRY_ANOTHER_PACKAGE_NUMBER")} `, "");
+                                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("TRY_ANOTHER_PACKAGE_NUMBER"))} `, "");
                                 }
                             })
                             .catch(err => {
                                 console.log(err)
-                                ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("API_PROBLEM")} `, "");
+                                ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("API_PROBLEM"))} `, "");
                             })
 
                     } else {
-                        let speechOutput = this.t("MANY_PACKAGES_REGISTER");
+                        let speechOutput = SentenceHelper.getSentence(this.t("MANY_PACKAGES_REGISTER"));
                         return instance.get(`suivi/v1/list?codes=${session.packages.join(',')}`)
                             .then((response) => {
                                 response.data.map(obj => {
@@ -55,25 +56,25 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
                                 ResponseHelper.sendResponse(alexa, `${speechOutput}`, "");
                             })
                             .catch(err => {
-                                ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("API_PROBLEM")} `, "");
+                                ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("API_PROBLEM"))} `, "");
                             })
                     }
                 } else {
-                    let speechOutput = this.t("NO_PACKAGE_REGISTER");
+                    let speechOutput = SentenceHelper.getSentence(this.t("NO_PACKAGE_REGISTER"));
                     ResponseHelper.sendResponse(alexa, `${speechOutput}`, "");
                 }
             })
     },
     Unhandled() {
-        ResponseHelper.sendResponse(this, this.t('UNHANDLE_MESSAGE'));
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
     },
     'AMAZON.CancelIntent': function stopGame() {
-        this.attributes.speechOutput = this.t("CANCEL_MESSAGE");
+        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
         this.handler.state = config.APP_STATES.START;
         this.emitWithState('Menu');
     },
     'AMAZON.StopIntent': function stopGame() {
-        const speechOutput = this.t('STOP_MESSAGE');
+        const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
         ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
     },
 });

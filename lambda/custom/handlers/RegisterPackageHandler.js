@@ -1,11 +1,12 @@
 const Alexa = require('alexa-sdk');
 const config = require('../config');
 const ResponseHelper = require('../Helpers/ResponseHelper');
+const SentenceHelper = require('../Helpers/SentenceHelper');
 const DB = require('../Database/DB');
 
 const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGISTER_PACKAGE, {
     Init() {
-        speechOutput = this.t('INIT_REGISTRATION');
+        speechOutput = SentenceHelper.getSentence(this.t('INIT_REGISTRATION'));
 
         // Init variables that will be implemented
         this.attributes.firstNumber = "";
@@ -38,7 +39,7 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
                 }
 
                 DB.save(alexa.event.context.System.user.userId, session).then(() => {
-                    speechOutput = this.t("PACKAGE_REGISTERED")
+                    speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_REGISTERED"))
                     ResponseHelper.sendResponse(alexa, `${speechOutput} ${packageNumber}`, "");
                 });
             })
@@ -52,15 +53,15 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
         this.emitWithState('FindPackage');
     },
     Unhandled() {
-        ResponseHelper.sendResponse(this, this.t('UNHANDLE_MESSAGE'));
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
     },
     'AMAZON.CancelIntent': function stopGame() {
-        this.attributes.speechOutput = this.t("CANCEL_MESSAGE");
+        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
         this.handler.state = config.APP_STATES.START;
         this.emitWithState('Menu');
     },
     'AMAZON.StopIntent': function stopGame() {
-        const speechOutput = this.t('STOP_MESSAGE');
+        const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
         ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
     },
 });

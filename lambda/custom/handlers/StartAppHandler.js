@@ -1,11 +1,11 @@
 const Alexa = require('alexa-sdk');
 const config = require('../config');
 const ResponseHelper = require('../Helpers/ResponseHelper');
+const SentenceHelper = require('../Helpers/SentenceHelper');
 const DB = require('../Database/DB');
 
 const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
-    Welcome() {
-        this.attributes.speechOutput = config.AUDIO(config.AUDIO(config.START_APP_SOUND));
+    Welcome() {        
         this.attributes.speechOutput = this.t('WELCOME_APP_MESSAGE', this.t('APP_NAME'));
         this.attributes.speechOutput += this.t('WELCOME_MESSAGE');
         this.emitWithState('Menu');
@@ -50,10 +50,10 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
         this.emitWithState('Menu');
     },
     Unhandled() {
-        ResponseHelper.sendResponse(this, this.t('UNHANDLE_MESSAGE'));
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
     },
     'AMAZON.StopIntent': function stopGame() {
-        const speechOutput = this.t('STOP_MESSAGE');
+        const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
         this.response.speak(speechOutput).listen(speechOutput);
         this.emit(':responseReady');
     },
