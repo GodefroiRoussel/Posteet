@@ -18,7 +18,7 @@ module.exports = {
     WAIT_RESPONSE_SOUND: 'https://s3-eu-west-1.amazonaws.com/alexasoundstrivia/wait_sound.mp3',
     IMAGE_BACKGROUND_URL: 'http://www.galwaytourcompany.com/wp-content/uploads/2017/10/Connemara-Wild-Atlantic-Way.jpg',
 
-    APP_ID: 'amzn1.ask.skill.0cd3418e-771a-4120-8120-d1dcdb6beaa1', // TODO replace with your app ID
+    APP_ID: 'amzn1.ask.skill.8589531b-402f-4178-8202-ba354200d2c3', // TODO replace with your app ID
 
     languageString: {
         "fr-FR": {
@@ -47,11 +47,11 @@ module.exports = {
                 APP_NAME: 'Posteet ',
                 WELCOME_MESSAGE: 'Je vais vous aider avec les différents services de La Poste. ',
                 REGISTER_PACKAGE: 'Vous pouvez enregistrer un colis. ',
-                DELETE_PACKAGE: 'Vous pouvez supprimer un colis.',
+                DELETE_PACKAGE: 'Vous pouvez supprimer un colis. ',
                 RETRIEVE_INFO_PACKAGE: "Vous pouvez savoir où se trouve un de vos colis enregistrés. ",
                 OPTIONS_MESSAGE: 'Quel service souhaitez-vous demander? Vous pouvez enregistrer un colis ou bien retrouver un colis enregistré précédemment. ',
                 HELP_MESSAGE_MENU: "Vous vous trouvez sur le menu de l'application. Vous pouvez faire ces différentes actions. ",
-                FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche en disant 'Alexa où se trouve le bureau le plus proche'. ",
+                FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche. ",
                 PRICE_PACKAGE: "Enfin, vous pouvez connaître le prix d'un colis. ",
 
                 // Register Package Handler
