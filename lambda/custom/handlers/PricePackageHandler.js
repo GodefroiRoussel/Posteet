@@ -18,12 +18,14 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
             this.emit(':delegate');
         }
         else {
-            let speechOutput = "Vous avez ";
             const package = alexa.event.request.intent.slots.package.value;
             const weight = alexa.event.request.intent.slots.poids.value;
             return instance.get(`tarifenvoi/v1?type=${package}&poids=${weight}`)
                 .then((response) => {
+                    let speechOutput = "Vous avez ";
                     response.data.forEach(element => {
+                        //Split price
+                        const priceArray = element.price.toString().split(".");
                         speechOutput += element.product + " ";
                         if (element.channel == "bureau") {
                             speechOutput += " en bureau de poste ";
@@ -34,22 +36,14 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
                         else {
                             speechOutput += " " + element.channel + " ";
                         }
-                        speechOutput += " à " + element.price + " " + element.currency + ".<break time='1s'/>";
+                        speechOutput += " à " + priceArray[0] + "," + priceArray[1] + "" + element.currency + ". <break time='1s'/>";
                     });
-                    console.log(speechOutput);
-                    // OK
-                    if (response.status === 200) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("ASK_OTHER_ACTION"))} `, "");
-                        // Wrong Package Code Type Sent
-                    } else if (response.status === 400) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("WRONT_TYPE"))} `, "");
-                        // Package Not Found
-                    } else if (response.status === 404) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("TRY_ANOTHER_PACKAGE_NUMBER"))} `, "");
-                    }
+                    alexa.handler.state = config.APP_STATES.START;
+                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(alexa.t("ASK_OTHER_ACTION"))} `, "");
                 })
                 .catch(err => {
-                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(this.t("API_PROBLEM"))} `, "");
+                    console.log(err);
+                    ResponseHelper.sendResponse(alexa, `${SentenceHelper.getSentence(alexa.t("API_PROBLEM"))} `, null, null, null, null, false);
                 })
         }
     },
