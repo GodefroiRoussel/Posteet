@@ -85,7 +85,7 @@ module.exports = {
                 "Il y a actuellement aucun colis enregistré. Veuillez me donner le numéro de colis que je dois chercher. ", 
                 "Il n'y a aucun colis enregistré. Donnez moi le numéro de colis que je dois chercher. "],
 
-                =======         // Find Closest Posting Service Handler
+                // Find Closest Posting Service Handler
                 NOTIFY_MISSING_PERMISSIONS: "Veuillez nous permettre d'accéder à votre adresse depuis votre application Alexa",
                 NO_ADDRESS: "Il semblerait que vous n'avez pas renseigné votre adresse. Vous pouvez le faire depuis votre application Alexa.",
                 DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard",
