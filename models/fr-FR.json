@@ -19,7 +19,17 @@
                 },
                 {
                     "name": "AMAZON.StopIntent",
-                    "samples": []
+                    "samples": [
+                        "bye",
+                        "ciao",
+                        "à la prochaine",
+                        "merci au revoir",
+                        "asta la vista baby",
+                        "au revoir",
+                        "adieu",
+                        "quitte le skill",
+                        "quitte"
+                    ]
                 },
                 {
                     "name": "AMAZON.NavigateHomeIntent",
