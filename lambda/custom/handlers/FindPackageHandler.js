@@ -11,44 +11,6 @@ var instance = axios.create({
 });
 
 const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKAGE, {
-    PackageNumberIntent() {
-        const confirmationStatus = this.event.request.intent.confirmationStatus;
-        if (confirmationStatus === 'NONE') {
-            this.emit(':delegate')
-        } else if (confirmationStatus === 'DENIED') {
-            speechOutput = this.t("WRONG_UNDERSTANDING_PACKAGE")
-            ResponseHelper.sendResponse(this, `${speechOutput}`, "");
-        } else {
-            const alexa = this;
-
-            const firstNumber = alexa.event.request.intent.slots.number.value;
-            const letter = alexa.event.request.intent.slots.letter.value.toUpperCase().charAt(0);
-            const firstDigits = alexa.event.request.intent.slots.firstDigits.value;
-            const secondDigits = alexa.event.request.intent.slots.secondDigits.value;
-            const lastDigits = alexa.event.request.intent.slots.lastDigits.value;
-
-            // TODO: Vérifier le slice
-            const packageNumber = `${firstNumber}${letter}${firstDigits}${secondDigits}${lastDigits}`.slice(0, 13);
-
-            return instance.get(`suivi/v1/${packageNumber}`)
-                .then((response) => {
-                    speechoutput += response.data.message
-                    // OK
-                    if (response.status === 200) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("ASK_OTHER_ACTION")}`, "");
-                        // Wrong Package Code Type Sent
-                    } else if (response.status === 400) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("WRONG_TYPE")}`, "");
-                        // Package Not Found
-                    } else if (response.status === 404) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("TRY_ANOTHER_PACKAGE_NUMBER")}`, "");
-                    }
-                })
-                .catch(err => {
-                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${this.t("API_PROBLEM")}`, "", null, null, null, false);
-                })
-        }
-    },
     FindPackage() {
         const alexa = this;
 

@@ -8,6 +8,7 @@ module.exports = {
         FIND_PACKAGE: "_FIND_PACKAGE",
         PRICE_PACKAGE: "_PRICE_PACKAGE",
         DELETE_PACKAGE: "_DELETE_PACKAGE",
+        DIGIT_PACKAGE: "_DIGIT_PACKAGE",
     },
     AUDIO: src => `<audio src="${src}"/>`,
 
