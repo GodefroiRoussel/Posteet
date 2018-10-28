@@ -23,12 +23,18 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
                 }
                 speechOutput += this.t("FIND_POSTE")
                 speechOutput += this.t("PRICE_PACKAGE")
-                DB.save(alexa.event.context.System.user.userId, session).then(() => {
-                    ResponseHelper.sendResponse(alexa, `${speechOutput}`, this.t('OPTIONS_MESSAGE'));
-                });
+                DB.save(alexa.event.context.System.user.userId, session)
+                    .then(() => {
+                        ResponseHelper.sendResponse(alexa, `${speechOutput}`, this.t('START_REPROMPT_MESSAGE'));
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        ResponseHelper.sendResponse(alexa, `${SentenceHelper.getSentence(alexa.t("API_PROBLEM"))} `, null, null, null, null, false);
+                    });
             })
             .catch(err => {
                 console.log(err);
+                ResponseHelper.sendResponse(alexa, `${alexa.t("AMAZON_ERROR")} `, null, null, null, null, false);
             });
     },
     RegisterPackage() {
@@ -52,18 +58,18 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
         this.emitWithState('PostingServiceIntent');
     },
     'AMAZON.RepeatIntent': function RepeatOption() {
-        this.attributes.speechOutput = 'Très bien, vous ';
+        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("REPEAT_MESSAGE"));
         this.emitWithState('Menu');
     },
     Unhandled() {
-        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE'), this.t("START_REPROMPT_MESSAGE")));
     },
     'AMAZON.HelpIntent': function helpStart() {
         this.attributes.speechOutput = this.t("HELP_MESSAGE_MENU");
         this.emitWithState('Menu');
     },
     'AMAZON.StopIntent': function stopGame() {
-        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('STOP_MESSAGE')))
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('STOP_MESSAGE')), null, null, null, null, false)
     },
 });
 

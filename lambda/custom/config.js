@@ -41,6 +41,7 @@ module.exports = {
                     "Je n'ai pas compris votre numéro de colis. Veuillez le répéter ou dites 'Annuler' pour retourner à l'accueil. ",
                     "J'ai mal compris votre numéro de colis. Pouvez-vous le répéter ? Sinon dites 'Annuler' pour retourner à l'accueil. "],
                 AMAZON_ERROR: "Je suis désolé mais Amazon rencontre actuellement des problèmes, veuillez réessayer plus tard. ",
+                REPEAT_MESSAGE: ["Très bien, je vais répéter. ", "Je répète. "],
 
                 // startFlightHandler
                 WELCOME_APP_MESSAGE: 'Bienvenue sur %s . ',
@@ -49,7 +50,7 @@ module.exports = {
                 REGISTER_PACKAGE: 'Vous pouvez enregistrer un colis. ',
                 DELETE_PACKAGE: 'Vous pouvez supprimer un colis. ',
                 RETRIEVE_INFO_PACKAGE: "Vous pouvez savoir où se trouve un de vos colis enregistrés. ",
-                OPTIONS_MESSAGE: 'Quel service souhaitez-vous demander? Vous pouvez enregistrer un colis ou bien retrouver un colis enregistré précédemment. ',
+                START_REPROMPT_MESSAGE: "Vous pouvez dire par exemple 'Alexa enregistre un colis', 'Alexa où se trouve le bureau de poste le plus proche' ou encore 'Quel est le prix d'une lettre ?'. ",
                 HELP_MESSAGE_MENU: "Vous vous trouvez sur le menu de l'application. Vous pouvez faire ces différentes actions. ",
                 FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche. ",
                 PRICE_PACKAGE: "Enfin, vous pouvez connaître le prix d'un colis. ",
