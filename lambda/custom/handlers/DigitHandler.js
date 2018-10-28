@@ -19,7 +19,6 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
             const secondDigits = this.attributes.secondDigits;
             const lastDigits = this.attributes.lastDigits;
 
-            //TODO: Check slice
             const packageNumber = `${firstNumber}${letter}${firstDigits}${secondDigits}${lastDigits}`.slice(0, 13);
 
             // Return in the last handler and go to the endEnterPackageNumber
@@ -28,17 +27,18 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
         }
     },
     FirstNumbers() {
+        this.attributes.turn = 0;
         const confirmationStatus = this.event.request.intent.confirmationStatus;
         if (confirmationStatus === 'NONE') {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
             speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
-            ResponseHelper.sendResponse(this, `${speechOutput}`, "");
+            ResponseHelper.sendResponse(this, `${speechOutput}`, this.t("FIRST_INSTRUCTION_REPROMPT_MESSAGE"));
         } else {
             // Fill the first number and the letter
             this.attributes.firstNumber = this.event.request.intent.slots.number.value;
             this.attributes.letter = this.event.request.intent.slots.letter.value.toUpperCase().charAt(0);
-            this.emitWithState('Init', 0);
+            this.emitWithState('Init');
         }
     },
     DigitsPackage() {
@@ -47,22 +47,19 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
             speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
-            ResponseHelper.sendResponse(this, `${speechOutput}`, "");
+            ResponseHelper.sendResponse(this, `${speechOutput}`, this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn]);
         } else {
-            let i = 0;
             const digits = this.event.request.intent.slots.digits.value;
 
-            if (this.attributes.firstDigits === "") {
-                i = 1;
+            if (this.attributes.firstDigits === "")
                 this.attributes.firstDigits = digits;
-            } else if (this.attributes.secondDigits === "") {
-                i = 2;
+            else if (this.attributes.secondDigits === "")
                 this.attributes.secondDigits = digits;
-            } else {
-                i = 3;
+            else
                 this.attributes.lastDigits = digits.value;
-            }
-            this.emitWithState('Init', i);
+
+            this.attributes.turn += 1;
+            this.emitWithState('Init');
         }
     },
     LastNumbers() {
@@ -71,36 +68,45 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
             speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
-            ResponseHelper.sendResponse(this, `${speechOutput}`, "");
+            ResponseHelper.sendResponse(this, `${speechOutput}`, this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn]);
         } else {
-            let i = 0;
             const numbers = this.event.request.intent.slots.numbers.value;
 
-            if (this.attributes.firstDigits === "") {
-                i = 1;
+            if (this.attributes.firstDigits === "")
                 this.attributes.firstDigits = numbers;
-            } else if (this.attributes.secondDigits === "") {
-                i = 2;
+            else if (this.attributes.secondDigits === "")
                 this.attributes.secondDigits = numbers;
-            } else {
-                i = 3;
+            else
                 this.attributes.lastDigits = numbers;
-            }
-            this.emitWithState('Init', i);
+
+            this.attributes.turn += 1;
+            this.emitWithState('Init');
         }
     },
     Unhandled() {
-        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
+        let repromptSpeech = "";
+        if (this.attributes.number !== '')
+            repromptSpeech = this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn];
+        else
+            repromptSpeech = this.t("FIRST_INSTRUCTION_REPROMPT_MESSAGE");
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')), repromptSpeech);
     },
     'AMAZON.HelpIntent': function helpEnterNumbers() {
-        let speechOutput = ''
-        if (this.attributes.number === '')
+        let speechOutput = '';
+        let repromptSpeech = '';
+        if (this.attributes.number === '') {
             speechOutput = this.t('HELP_MESSAGE_NUMBER_LETTER');
-        else if (this.attributes.firstDigits === '' || this.attributes.secondDigits === '')
+            repromptSpeech = this.t("FIRST_INSTRUCTION_REPROMPT_MESSAGE");
+        }
+        else if (this.attributes.firstDigits === '' || this.attributes.secondDigits === '') {
             speechOutput = this.t('HELP_MESSAGE_DIGIT');
-        else
+            repromptSpeech = this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn];
+        }
+        else {
             speechOutput = this.t('HELP_MESSAGE_NUMBER');
-        ResponseHelper.sendResponse(this, speechOutput, null)
+            repromptSpeech = this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn];
+        }
+        ResponseHelper.sendResponse(this, speechOutput, repromptSpeech)
     },
     'AMAZON.CancelIntent': function stopGame() {
         this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
