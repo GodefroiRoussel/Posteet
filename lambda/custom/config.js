@@ -56,9 +56,9 @@ module.exports = {
                 PRICE_PACKAGE: "Enfin, vous pouvez connaître le prix d'un colis. ",
 
                 // Register Package Handler
-                INIT_REGISTRATION: ['On va maintenant enregistrer votre colis. Veuillez me donner votre numéro de colis. ',
-                    "Nous allons procéder à l'enregistrement d'un colis. Veuillez me donner son numéro. ",
-                    "Nous allons faire l'enregistrement d'un colis. Veuillez me donner le numéro du colis. "],
+                INIT_REGISTRATION: ['On va maintenant enregistrer votre colis. Veuillez me donner le premier chiffre et la première lettre de votre numéro de colis. ',
+                    "Nous allons procéder à l'enregistrement d'un colis. Veuillez me donner son premier chiffre et sa première lettre. ",
+                    "Nous allons faire l'enregistrement d'un colis. Veuillez me donner le premier chiffre et la première lettre de votre numéro de colis. "],
                 PACKAGE_REGISTERED: ["Parfait, j'ai enregistré votre colis. Vous pouvez dès à présent suivre votre colis en disant 'Alexa où en est mon colis'. ",
                     "Votre colis a bien été enregistré. Vous pouvez maintenant le suivre en disant 'Alexa où est mon colis'. ",
                     "J'ai bien enregistré le colis. Vous pouvez le suivre en disant 'Alexa où est mon colis'. ",
@@ -101,6 +101,9 @@ module.exports = {
                 HELP_MESSAGE_DIGIT: "Vous devez donner les 4 prochains chiffres de votre commande. ",
                 HELP_MESSAGE_NUMBER: "Vous devez donner les derniers chiffres de votre commande. ",
                 HELP_MESSAGE_NUMBER_LETTER: "Vous devez donner le premier chiffre et la lettre de votre commande. ",
+                FIRST_INSTRUCTION_REPROMPT_MESSAGE: "Donnez moi le premier numéro et la première lettre de votre colis s'il vous plait. ",
+                DIGIT_INSTRUCTIONS: ["Parfait ! Quels sont les 4 premiers numéros ? ", "Continuons maintenant avec les 4 prochains numéros. ", "C'est bientôt fini. Donnez moi les derniers numéros du colis. "],
+                DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE: ["Quels sont les 4 premiers numéros ? ", "Quels sont les 4 numéros maintenant ? ", "Quels sont les derniers numéros ? "],
 
                 // Price Package Handler
                 HELP_MESSAGE_PRICE_PACKAGE: "Vous devez me donner le type de courrier que vous souhaitez envoyer ainsi que le poids que ce courrier fait afin que je puisse vous aider. ",

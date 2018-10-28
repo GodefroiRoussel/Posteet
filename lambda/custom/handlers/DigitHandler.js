@@ -5,19 +5,12 @@ const SentenceHelper = require('../Helpers/SentenceHelper');
 const DB = require('../Database/DB');
 
 const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
-    Init(nbTimeDigitRegistered) {
+    Init() {
+        const nbTimeDigitRegistered = this.attributes.turn;
         if (nbTimeDigitRegistered < 3) {
-            switch (nbTimeDigitRegistered) {
-                case 0:
-                    speechOutput = "Parfait ! Quels sont les 4 premiers numéros ? ";
-                    break;
-                case 1:
-                    speechOutput = "Continuons maintenant avec les 4 prochains numéros. ";
-                    break;
-                default:
-                    speechOutput = "C'est bientôt fini. Donnez moi les derniers numéros du colis. ";
-            }
-            ResponseHelper.sendResponse(this, speechOutput, "");
+            const speechOutput = this.t("DIGIT_INSTRUCTIONS")[nbTimeDigitRegistered];
+            const repromptSpeech = this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[nbTimeDigitRegistered];
+            ResponseHelper.sendResponse(this, speechOutput, repromptSpeech);
         } else {
             // Build the packageNumber
             const firstNumber = this.attributes.firstNumber;
