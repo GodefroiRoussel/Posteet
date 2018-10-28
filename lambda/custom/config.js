@@ -64,6 +64,8 @@ module.exports = {
                     "J'ai bien enregistré le colis. Vous pouvez le suivre en disant 'Alexa où est mon colis'. ",
                     "Super le colis a été enregistré. Dites 'Alexa où est mon colis' pour le suivre. "],
                 HELP_MESSAGE_REGISTER: "Vous devez donner le numéro de colis que vous souhaitez enregistrer. Pour cela commencez par donner le premier chiffre et la première lettre de votre colis. ",
+                REGISTER_REPROMPT_MESSAGE: "Donnez moi le premier chiffre et la première lettre de votre colis. ",
+                END_REGISTER_REPROMPT_MESSAGE: "Pour connaître l'état de votre nouveau colis enregistré dites : 'Alexa où en est mon colis'. Demandez moi de l'aide si vous souhaitez plus d'informations sur les différentes fonctionnalités disponibles. ",
 
                 // Delete Package Handler
                 INIT_DELETION: ['Veuillez me donner le numéro de colis que vous souhaitez supprimer. ', 'Donnez moi le numéro de colis que vous voulez supprimer. ',

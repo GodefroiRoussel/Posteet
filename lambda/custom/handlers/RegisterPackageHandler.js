@@ -15,7 +15,7 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
         this.attributes.secondDigits = "";
         this.attributes.lastDigits = "";
 
-        ResponseHelper.sendResponse(this, `${speechOutput} `, "");
+        ResponseHelper.sendResponse(this, `${speechOutput} `, this.t("REGISTER_REPROMPT_MESSAGE"));
     },
     FirstNumbers() {
         this.attributes.previousHandler = this.handler.state;
@@ -40,11 +40,11 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
 
                 DB.save(alexa.event.context.System.user.userId, session).then(() => {
                     speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_REGISTERED"))
-                    ResponseHelper.sendResponse(alexa, `${speechOutput} `, "");
+                    ResponseHelper.sendResponse(alexa, `${speechOutput} `, this.t("END_REGISTER_REPROMPT_MESSAGE"));
                 })
                     .catch(err => {
-                        const speechOutput = this.t('AMAZON_ERROR');
                         console.log(err);
+                        const speechOutput = this.t('AMAZON_ERROR');
                         ResponseHelper.sendResponse(alexa, `${speechOutput}`, null, null, null, null, false);
                     });
             })
@@ -68,10 +68,10 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
         ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
     },
     Unhandled() {
-        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')), this.t("REGISTER_REPROMPT_MESSAGE"));
     },
     'AMAZON.HelpIntent': function helpStart() {
-        ResponseHelper.sendResponse(this, this.t("HELP_MESSAGE_REGISTER"));
+        ResponseHelper.sendResponse(this, this.t("HELP_MESSAGE_REGISTER"), this.t("REGISTER_REPROMPT_MESSAGE"));
     },
 });
 
