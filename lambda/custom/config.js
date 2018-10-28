@@ -75,6 +75,7 @@ module.exports = {
                     "Je suis désolée le colis n'existe pas. "],
                 PACKAGES_EMPTY: ["Vous n'avez aucun colis enregistré. ", "Je suis désolée vous n'avez aucun colis enregistré. ", "Aucun colis n'est encore enregistré. "],
                 HELP_MESSAGE_DELETE: "Vous devez donner le numéro de colis que vous souhaitez supprimer. Pour cela commencez par donner le premier chiffre et la première lettre de votre colis. ",
+                DELETE_REPROMPT_MESSAGE: "Donnez moi le premier chiffre et la première lettre de votre colis. ",
 
                 // Find Package Handler
                 WRONT_TYPE: ["Le problème vient de chez nous et nous travaillons actuellement dessus. Merci de votre compréhension. ",
@@ -107,6 +108,7 @@ module.exports = {
 
                 // Price Package Handler
                 HELP_MESSAGE_PRICE_PACKAGE: "Vous devez me donner le type de courrier que vous souhaitez envoyer ainsi que le poids que ce courrier fait afin que je puisse vous aider. ",
+                PRICE_REPROMPT_MESSAGE: "Donnez moi le type ou le poids du courrier donc vous souhaitez connaître le prix. ",
             }
         }
     }

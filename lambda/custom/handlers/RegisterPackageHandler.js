@@ -25,6 +25,9 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
     endEnterPackageNumber(packageNumber) {
         const alexa = this;
 
+        // Redirection to the Start of the application
+        this.handler.state = config.APP_STATES.START;
+
         DB.getSession(alexa.event.context.System.user.userId)
             .then(session => {
                 if (session.packages) {

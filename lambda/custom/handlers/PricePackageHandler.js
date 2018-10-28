@@ -39,7 +39,7 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
                         speechOutput += " à " + priceArray[0] + "," + priceArray[1] + "" + element.currency + ". <break time='1s'/>";
                     });
                     alexa.handler.state = config.APP_STATES.START;
-                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(alexa.t("ASK_OTHER_ACTION"))} `, "");
+                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(alexa.t("ASK_OTHER_ACTION"))} `, alexa.t("START_REPROMPT_MESSAGE"));
                 })
                 .catch(err => {
                     console.log(err);
@@ -48,7 +48,7 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
         }
     },
     Unhandled() {
-        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')));
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')), this.t("PRICE_REPROMPT_MESSAGE"));
     },
     'AMAZON.CancelIntent': function stopGame() {
         this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
@@ -56,7 +56,7 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
         this.emitWithState('Menu');
     },
     'AMAZON.HelpIntent': function helpStart() {
-        ResponseHelper.sendResponse(this, this.t("HELP_MESSAGE_PRICE_PACKAGE"));
+        ResponseHelper.sendResponse(this, this.t("HELP_MESSAGE_PRICE_PACKAGE"), this.t("PRICE_REPROMPT_MESSAGE"));
     },
     'AMAZON.StopIntent': function stopGame() {
         const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
