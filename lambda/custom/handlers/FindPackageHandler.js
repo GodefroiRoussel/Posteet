@@ -8,7 +8,7 @@ const DB = require('../Database/DB');
 var instance = axios.create({
     baseURL: 'https://api.laposte.fr/',
     timeout: 5000,
-    headers: { 'X-Okapi-Key': config.API_KEY }
+    headers: { 'X-Okapi-Key': config.LAPOSTE_API_KEY }
 });
 
 const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKAGE, {

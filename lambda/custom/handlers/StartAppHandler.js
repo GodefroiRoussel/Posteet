@@ -23,6 +23,7 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
                 }
                 speechOutput += this.t("FIND_POSTE")
                 speechOutput += this.t("PRICE_PACKAGE")
+                speechOutput += this.t("ASK_MENU");
                 DB.save(alexa.event.context.System.user.userId, session)
                     .then(() => {
                         ResponseHelper.sendResponse(alexa, `${speechOutput}`, this.t('START_REPROMPT_MESSAGE'));

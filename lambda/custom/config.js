@@ -54,6 +54,7 @@ module.exports = {
                 HELP_MESSAGE_MENU: "Vous vous trouvez sur le menu de l'application. Vous pouvez faire ces différentes actions. ",
                 FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche de chez vous. ",
                 PRICE_PACKAGE: "Enfin, vous pouvez connaître le prix d'un colis. ",
+                ASK_MENU: "Que voulez-vous faire? ",
 
                 // Register Package Handler
                 INIT_REGISTRATION: ['On va maintenant enregistrer votre colis. Veuillez me donner le premier chiffre et la première lettre de votre numéro de colis. ',
