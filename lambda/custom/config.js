@@ -1,7 +1,7 @@
 module.exports = {
     DYNAMODB_TABLE: 'Posteet',
-    API_KEY: 'RIyLQtfaUXefAhM60nqT6Bcy63Fn2v73kEYW5TINBUWvlyGnD1Gk2W3CgQKlH/IP',
-    DISTANCE_API_KEY: 'c7SPFYk2naeqwlAxGfJlHYi9426VVnBk',
+    LAPOSTE_API_KEY: 'zchl9IRQIeGObF+kw+s4nD4h+d6pJKqgGMwJtT7KFJs/sGa4p1ljEh8hU1zwNcaV',
+    DISTANCE_API_KEY: 'DOW3yIozsh0EobJtzvPwP5AzbSMP0YrS',
    
     APP_STATES: {
         START: "_START", // Entry point, start the application.
@@ -18,7 +18,7 @@ module.exports = {
     WAIT_RESPONSE_SOUND: 'https://s3-eu-west-1.amazonaws.com/alexasoundstrivia/wait_sound.mp3',
     IMAGE_BACKGROUND_URL: 'http://www.galwaytourcompany.com/wp-content/uploads/2017/10/Connemara-Wild-Atlantic-Way.jpg',
 
-    APP_ID: 'amzn1.ask.skill.8589531b-402f-4178-8202-ba354200d2c3', // TODO replace with your app ID
+    APP_ID: 'amzn1.ask.skill.0cd3418e-771a-4120-8120-d1dcdb6beaa1', // TODO replace with your app ID
 
     languageString: {
         "fr-FR": {
@@ -52,7 +52,7 @@ module.exports = {
                 RETRIEVE_INFO_PACKAGE: "Vous pouvez savoir où se trouve un de vos colis enregistrés. ",
                 START_REPROMPT_MESSAGE: "Vous pouvez dire par exemple 'Alexa enregistre un colis', 'Alexa où se trouve le bureau de poste le plus proche' ou encore 'Quel est le prix d'une lettre ?'. ",
                 HELP_MESSAGE_MENU: "Vous vous trouvez sur le menu de l'application. Vous pouvez faire ces différentes actions. ",
-                FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche. ",
+                FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche de chez vous. ",
                 PRICE_PACKAGE: "Enfin, vous pouvez connaître le prix d'un colis. ",
 
                 // Register Package Handler
@@ -97,6 +97,8 @@ module.exports = {
                 DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard ",
                 NEAREST_OFFICE_ADDRESS: "A l'adresse suivante : ",
                 NEAREST_OFFICE_DISTANCE: "Le bureau de poste le plus proche est situé à ",
+                NEAREST_OFFICE: "Le bureau de poste le plus proche est situé au ",
+                NO_NEAREST_OFFICE: "Je suis désolée mais je n'ai pas pu trouver le bureau de poste le plus proche. Votre adresse est peut être incomplète, vous pouvez la modifier depuis votre application Alexa. ",
 
                 // Digit Handler
                 HELP_MESSAGE_DIGIT: "Vous devez donner les 4 prochains chiffres de votre commande. ",
