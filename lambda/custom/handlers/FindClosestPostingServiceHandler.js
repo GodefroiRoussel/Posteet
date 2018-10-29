@@ -74,11 +74,11 @@ const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STA
                 const distancesRequest = await axios.post('http://www.mapquestapi.com/directions/v2/routematrix?key=DOW3yIozsh0EobJtzvPwP5AzbSMP0YrS', requestBody)
 
                 const distances = distancesRequest.data.distance.map(d => d.toString().replace(".", ","))
-
                 const smallest = distances.sort()[1]
                 const nearest = addressesForDistance[distances.indexOf(smallest)];
 
-                // const speechOutput = alexa.t("NEAREST_OFFICE_DISTANCE") + smallest.substr(0,3) + alexa.t(" kilom�tres , ") + alexa.t("NEAREST_OFFICE_ADDRESS") + nearest + " "                const speechOutput = alexa.t("NEAREST_OFFICE") + nearest;
+                // const speechOutput = alexa.t("NEAREST_OFFICE_DISTANCE") + smallest.substr(0,3) + alexa.t(" kilom�tres , ") + alexa.t("NEAREST_OFFICE_ADDRESS") + nearest + " "                
+                const speechOutput = alexa.t("NEAREST_OFFICE") + nearest;
                 const cardContent = `${nearest} \n Distance : ${smallest.substr(0, 3)}km`
                 let responseWithCard = {
                     "outputSpeech": speechOutput,

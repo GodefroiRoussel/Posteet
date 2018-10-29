@@ -17,13 +17,13 @@ const {
  * Check if the device has a display
  * @param {Object} event incoming request to Alexa
  */
-function supportsDisplay(event) {
+function supportsDisplay() {
     const hasDisplay =
-        event.context &&
-        event.context.System &&
-        event.context.System.device &&
-        event.context.System.device.supportedInterfaces &&
-        event.context.System.device.supportedInterfaces.Display;
+        this.event.context &&
+        this.event.context.System &&
+        this.event.context.System.device &&
+        this.event.context.System.device.supportedInterfaces &&
+        this.event.context.System.device.supportedInterfaces.Display;
     return hasDisplay;
 }
 
@@ -55,27 +55,14 @@ function sendResponse(alexa, speechOutput, repromptSpeech, cardTitle, image, tex
 }
 
 function sendResponseWithCard(alexa, response) {
-    if (supportsDisplay(alexa.event)) {
-        const card = response.card;
-        alexa.response.cardRenderer(card.title, card.content).speak(response.outputSpeech);
-        alexa.emit(':responseReady');
-    }
-    else {
-        alexa.response.speak(response.outputSpeech);
-        alexa.emit(':responseReady');
-    }
-
+    const card = response.card;
+    alexa.response.cardRenderer(card.title, card.content).speak(response.outputSpeech);
+    alexa.emit(':responseReady');
 }
 
 function askForUserPermission(alexa, speechOutput, permissions) {
-    if (supportsDisplay(alexa.event)) {
-        alexa.response.askForPermissionsConsentCard(permissions).speak(speechOutput);
-        alexa.emit(':responseReady');
-    } else {
-        alexa.response.speak(speechOutput);
-        alexa.emit(':responseReady');
-    }
-
+    alexa.response.askForPermissionsConsentCard(permissions).speak(speechOutput);
+    alexa.emit(':responseReady');
 }
 
-module.exports = { sendResponse, sendResponseWithCard, askForUserPermission };
+module.exports = { sendResponse, sendResponseWithCard, askForUserPermission, supportsDisplay };
