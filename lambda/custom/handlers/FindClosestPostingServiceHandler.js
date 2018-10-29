@@ -7,7 +7,7 @@ const SentenceHelper = require('../Helpers/SentenceHelper');
 const PERMISSIONS = ['read::alexa:device:all:address']
 
 const instance = axios.create({
-    baseURL: 'https://api.laposte.fr', 
+    baseURL: 'https://api.laposte.fr',
     timeout: 5000,
     headers: { 'X-Okapi-Key': config.LAPOSTE_API_KEY }
 });
@@ -16,13 +16,13 @@ const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STA
     async PostingServiceIntent() {
 
         const alexa = this;
-
+        this.handler.state = config.APP_STATES.START
         deviceId = alexa.event.context.System.device.deviceId
         accessToken = alexa.event.context.System.apiAccessToken
         apiEndpoint = alexa.event.context.System.apiEndpoint
 
         const instanceAlexaApi = axios.create({
-            baseURL: apiEndpoint, 
+            baseURL: apiEndpoint,
             timeout: 5000,
             headers: { 'Authorization': `Bearer ${accessToken}` }
         })
@@ -30,7 +30,7 @@ const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STA
         try {
             const userAddressRequest = await instanceAlexaApi.get(`/v1/devices/${deviceId}/settings/address`)
             const userAddress = userAddressRequest.data
-            
+
             if (userAddress.addressLine1 == null && userAddress.postalCode == null) return ResponseHelper.sendResponse(alexa, alexa.t("NO_ADDRESS"), PERMISSIONS)
             if (userAddress.addressLine1 == null && userAddress.postalCode) {
                 postAddresses = await instance.get(`/datanova/v1/pointscontact?q=${userAddress.postalCode}`)
@@ -42,7 +42,7 @@ const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STA
                         nearbyOffices += `${office.adresse}, ${office.codePostal} ${office.localite}`
                     }
                 }
-                
+
                 let responseWithCard = {
                     "outputSpeech": alexa.t("NO_NEAREST_OFFICE"),
                     "card": {
@@ -55,9 +55,9 @@ const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STA
             }
             else {
                 let postAddressesRequest;
-                if(userAddress.postalCode) postAddressesRequest = await instance.get(`/datanova/v1/pointscontact?q=${userAddress.postalCode}`) 
-                else if(userAddress.city) postAddressesRequest = await instance.get(`/datanova/v1/pointscontact?q=${userAddress.city}`) 
-                else return ResponseHelper.sendResponse(alexa, alexa.t("DISTANCE_ERROR"));
+                if (userAddress.postalCode) postAddressesRequest = await instance.get(`/datanova/v1/pointscontact?q=${userAddress.postalCode}`)
+                else if (userAddress.city) postAddressesRequest = await instance.get(`/datanova/v1/pointscontact?q=${userAddress.city}`)
+                else return ResponseHelper.sendResponse(alexa, alexa.t("DISTANCE_ERROR"), null, null, null, null, false);
 
                 const postAddresses = postAddressesRequest.data
 
@@ -73,14 +73,13 @@ const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STA
                 let requestBody = { locations: addressesForDistance }
                 const distancesRequest = await axios.post('http://www.mapquestapi.com/directions/v2/routematrix?key=DOW3yIozsh0EobJtzvPwP5AzbSMP0YrS', requestBody)
 
-                const distances = distancesRequest.data.distance.map( d => d.toString().replace(".", ","))
+                const distances = distancesRequest.data.distance.map(d => d.toString().replace(".", ","))
 
                 const smallest = distances.sort()[1]
                 const nearest = addressesForDistance[distances.indexOf(smallest)];
 
-                // const speechOutput = alexa.t("NEAREST_OFFICE_DISTANCE") + smallest.substr(0,3) + alexa.t(" kilomètres , ") + alexa.t("NEAREST_OFFICE_ADDRESS") + nearest + " ";
-                const speechOutput = alexa.t("NEAREST_OFFICE") + nearest;
-                const cardContent = `${nearest} \n Distance : ${smallest.substr(0,3)}km`
+                // const speechOutput = alexa.t("NEAREST_OFFICE_DISTANCE") + smallest.substr(0,3) + alexa.t(" kilomï¿½tres , ") + alexa.t("NEAREST_OFFICE_ADDRESS") + nearest + " "                const speechOutput = alexa.t("NEAREST_OFFICE") + nearest;
+                const cardContent = `${nearest} \n Distance : ${smallest.substr(0, 3)}km`
                 let responseWithCard = {
                     "outputSpeech": speechOutput,
                     "card": {
@@ -92,26 +91,14 @@ const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STA
                 return ResponseHelper.sendResponseWithCard(alexa, responseWithCard);
             }
         }
-        catch(err) {
-            if(err.response && err.response.status == 403 && err.response.config.baseURL.includes(apiEndpoint)) 
+        catch (err) {
+            if (err.response && err.response.status == 403 && err.response.config.baseURL.includes(apiEndpoint))
                 return ResponseHelper.askForUserPermission(alexa, alexa.t("NOTIFY_MISSING_PERMISSIONS"), PERMISSIONS)
-            else return SentenceHelper.getSentence(this.t("API_PROBLEM"))
+            else return ResponseHelper.sendResponse(alexa, SentenceHelper.getSentence(this.t("API_PROBLEM")), null, null, null, null, false)
         }
- 
-    },
-    Unhandled() {
-        const speechOutput = SentenceHelper.getSentence(this.t("UNHANDLE_MESSAGE"));
-        ResponseHelper.sendResponse(this, `${speechOutput}`, "");
-    },
-    'AMAZON.CancelIntent': function stopGame() {
-        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("CANCEL_MESSAGE"));
-        this.handler.state = config.APP_STATES.START;
-        this.emitWithState('Menu');
-    },
-    'AMAZON.StopIntent': function stopGame() {
-        const speechOutput = SentenceHelper.getSentence(this.t('STOP_MESSAGE'));
-        ResponseHelper.sendResponse(this, speechOutput, null, null, null, null, false)
-    },
+
+    }
+    //No need of Amazon Intent here because we always go to another handler (or leave the application) when sending a response
 })
 
 module.exports = findClosestPostingServiceHandler;

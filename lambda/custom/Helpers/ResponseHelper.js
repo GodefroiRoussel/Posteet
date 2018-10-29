@@ -55,14 +55,27 @@ function sendResponse(alexa, speechOutput, repromptSpeech, cardTitle, image, tex
 }
 
 function sendResponseWithCard(alexa, response) {
-    const card = response.card
-    alexa.response.cardRenderer(card.title, card.content).speak(response.outputSpeech)
-    alexa.emit(':responseReady');
+    if (supportsDisplay(alexa.event)) {
+        const card = response.card;
+        alexa.response.cardRenderer(card.title, card.content).speak(response.outputSpeech);
+        alexa.emit(':responseReady');
+    }
+    else {
+        alexa.response.speak(response.outputSpeech);
+        alexa.emit(':responseReady');
+    }
+
 }
 
 function askForUserPermission(alexa, speechOutput, permissions) {
-    alexa.response.askForPermissionsConsentCard(permissions).speak(speechOutput)
-    alexa.emit(':responseReady')
+    if (supportsDisplay(alexa.event)) {
+        alexa.response.askForPermissionsConsentCard(permissions).speak(speechOutput);
+        alexa.emit(':responseReady');
+    } else {
+        alexa.response.speak(speechOutput);
+        alexa.emit(':responseReady');
+    }
+
 }
 
 module.exports = { sendResponse, sendResponseWithCard, askForUserPermission };
