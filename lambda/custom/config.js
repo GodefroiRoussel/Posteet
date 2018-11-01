@@ -9,7 +9,7 @@ module.exports = {
         FIND_PACKAGE: "_FIND_PACKAGE",
         PRICE_PACKAGE: "_PRICE_PACKAGE",
         DELETE_PACKAGE: "_DELETE_PACKAGE",
-        DIGIT_PACKAGE: "_DIGIT_PACKAGE",
+        DIGIT_PACKAGE: "_DIGIT_PACKAGE",ask
         FIND_POSTING_SERVICE: "_FIND_POSTING_SERVICE",
     },
     AUDIO: src => `<audio src="${src}"/>`,
@@ -18,7 +18,7 @@ module.exports = {
     WAIT_RESPONSE_SOUND: 'https://s3-eu-west-1.amazonaws.com/alexasoundstrivia/wait_sound.mp3',
     IMAGE_BACKGROUND_URL: 'http://www.galwaytourcompany.com/wp-content/uploads/2017/10/Connemara-Wild-Atlantic-Way.jpg',
 
-    APP_ID: 'amzn1.ask.skill.0cd3418e-771a-4120-8120-d1dcdb6beaa1', // TODO replace with your app ID
+    APP_ID: 'amzn1.ask.skill.8589531b-402f-4178-8202-ba354200d2c3', // TODO replace with your app ID
 
     languageString: {
         "fr-FR": {
@@ -45,7 +45,7 @@ module.exports = {
 
                 // startFlightHandler
                 WELCOME_APP_MESSAGE: 'Bienvenue sur %s . ',
-                APP_NAME: 'Posteet ',
+                APP_NAME: 'Mon Posteet ',
                 WELCOME_MESSAGE: 'Je vais vous aider avec les différents services de La Poste. ',
                 REGISTER_PACKAGE: 'Vous pouvez enregistrer un colis. ',
                 DELETE_PACKAGE: 'Vous pouvez supprimer un colis. ',
