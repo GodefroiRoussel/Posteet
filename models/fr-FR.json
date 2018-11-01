@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "posteet",
+            "invocationName": "mon posteet",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",

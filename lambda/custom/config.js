@@ -9,7 +9,7 @@ module.exports = {
         FIND_PACKAGE: "_FIND_PACKAGE",
         PRICE_PACKAGE: "_PRICE_PACKAGE",
         DELETE_PACKAGE: "_DELETE_PACKAGE",
-        DIGIT_PACKAGE: "_DIGIT_PACKAGE",ask
+        DIGIT_PACKAGE: "_DIGIT_PACKAGE",
         FIND_POSTING_SERVICE: "_FIND_POSTING_SERVICE",
     },
     AUDIO: src => `<audio src="${src}"/>`,
@@ -45,7 +45,7 @@ module.exports = {
 
                 // startFlightHandler
                 WELCOME_APP_MESSAGE: 'Bienvenue sur %s . ',
-                APP_NAME: 'Mon Posteet ',
+                APP_NAME: 'Posteet ',
                 WELCOME_MESSAGE: 'Je vais vous aider avec les différents services de La Poste. ',
                 REGISTER_PACKAGE: 'Vous pouvez enregistrer un colis. ',
                 DELETE_PACKAGE: 'Vous pouvez supprimer un colis. ',
