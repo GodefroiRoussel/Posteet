@@ -58,12 +58,8 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
         this.handler.state = config.APP_STATES.FIND_POSTING_SERVICE;
         this.emitWithState('PostingServiceIntent');
     },
-    'AMAZON.RepeatIntent': function RepeatOption() {
-        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("REPEAT_MESSAGE"));
-        this.emitWithState('Menu');
-    },
     Unhandled() {
-        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE'), this.t("START_REPROMPT_MESSAGE")));
+        ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')), this.t("START_REPROMPT_MESSAGE"));
     },
     'AMAZON.HelpIntent': function helpStart() {
         this.attributes.speechOutput = this.t("HELP_MESSAGE_MENU");
@@ -72,6 +68,9 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
     'AMAZON.StopIntent': function stopGame() {
         ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('STOP_MESSAGE')), null, null, null, null, false)
     },
+    'AMAZON.CancelIntent': function stopGame() {
+        this.emitWithState('AMAZON.StopIntent');
+    }
 });
 
 module.exports = startAppHandler;
