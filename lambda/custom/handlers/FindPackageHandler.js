@@ -40,24 +40,24 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
         if (session.packages.length == 1) {
             const packageNumber = session.packages[0];
             let speechOutput = SentenceHelper.getSentence(this.t("ONE_PACKAGE_REGISTER"));
+            const packageNumberString = packageNumberIntoString(packageNumber);
 
             return instance.get(`suivi/v1/${packageNumber}`)
                 .then((response) => {
-                    speechOutput += response.data.message
                     // OK
                     if (response.status === 200) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . Le colis ${packageNumber} ${SentenceHelper.getSentence(alexa.t("ASK_OTHER_ACTION"))} `, alexa.t("START_REPROMPT_MESSAGE"));
-                        // Wrong Package Code Type Sent
-                    } else if (response.status === 400) {
-                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(alexa.t("WRONT_TYPE"))} `, alexa.t("START_REPROMPT_MESSAGE"));
-                        // Package Not Found
+                        ResponseHelper.sendResponse(alexa, `${speechOutput} <break time="0.5s"/> C'est le colis ${packageNumberString} : ${response.data.message}  <break time="0.5s"/> ${SentenceHelper.getSentence(alexa.t("ASK_OTHER_ACTION"))} `, alexa.t("START_REPROMPT_MESSAGE"));
                     } else if (response.status === 404) {
                         ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(alexa.t("TRY_ANOTHER_PACKAGE_NUMBER"))} `, alexa.t("START_REPROMPT_MESSAGE"));
                     }
                 })
-                .catch(err => {
-                    console.log(err);
-                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(alexa.t("API_PROBLEM"))} `, null, null, null, null, false);
+                .catch((err) => {
+                    // Wrong Package Code Type Sent or Package Not Found
+                    if (err.response.status === 400 || err.response.status === 404)
+                        ResponseHelper.sendResponse(alexa, `${speechOutput} <break time="0.5s"/>. Colis : ${packageNumberString} : ${err.response.data.message}  <break time="0.5s"/> ${SentenceHelper.getSentence(alexa.t("ASK_OTHER_ACTION"))}`, alexa.t("START_REPROMPT_MESSAGE"));
+                    // Error communicating API
+                    else
+                        ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(alexa.t("API_PROBLEM"))} `, null, null, null, null, false);
                 })
 
         } else {

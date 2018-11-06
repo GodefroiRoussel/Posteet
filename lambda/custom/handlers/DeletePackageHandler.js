@@ -22,7 +22,7 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
                     ResponseHelper.sendResponse(alexa, `${speechOutput} `, alexa.t("DELETE_REPROMPT_MESSAGE"));
                 }
                 else {
-                    alexa.attributes.speechOutput = SentenceHelper.getSentence(alexa.t('DELETE_IMPOSSIBLE'));
+                    alexa.attributes.speechOutput = alexa.t('DELETE_IMPOSSIBLE');
                     alexa.handler.state = config.APP_STATES.START;
                     alexa.emitWithState('Menu');
                 }
@@ -32,9 +32,21 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
             });
     },
     FirstNumbers() {
-        this.attributes.previousHandler = this.handler.state;
-        this.handler.state = config.APP_STATES.DIGIT_PACKAGE;
-        this.emitWithState('FirstNumbers');
+        this.attributes.turn = 0;
+        const confirmationStatus = this.event.request.intent.confirmationStatus;
+        if (confirmationStatus === 'NONE') {
+            this.emit(':delegate')
+        } else if (confirmationStatus === 'DENIED') {
+            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE')) + this.t("FIRST_INSTRUCTION_REPROMPT_MESSAGE");
+            ResponseHelper.sendResponse(this, `${speechOutput}`, this.t("FIRST_INSTRUCTION_REPROMPT_MESSAGE"));
+        } else {
+            this.attributes.previousHandler = this.handler.state;
+            this.handler.state = config.APP_STATES.DIGIT_PACKAGE;
+            // Fill the first number and the letter
+            this.attributes.firstNumber = this.event.request.intent.slots.number.value;
+            this.attributes.letter = this.event.request.intent.slots.letter.value.toUpperCase().charAt(0);
+            this.emitWithState('Init');
+        }
     },
     endEnterPackageNumber(packageNumber) {
         const alexa = this;
@@ -48,11 +60,10 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
                 if (session.packages) {
                     if (session.packages.includes(packageNumber)) {
                         session.packages.splice(session.packages.indexOf(packageNumber), 1);
-                        const speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_DELETED"))
+                        this.attributes.speechOutput = SentenceHelper.getSentence(this.t("PACKAGE_DELETED"))
                         DB.save(alexa.event.context.System.user.userId, session)
                             .then(() => {
-                                const repromptSpeech = this.t("START_REPROMPT_MESSAGE");
-                                ResponseHelper.sendResponse(alexa, `${speechOutput}`, repromptSpeech);
+                                this.emitWithState('Menu');
                             })
                             .catch(err => {
                                 console.log(err);

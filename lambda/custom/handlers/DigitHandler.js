@@ -26,27 +26,12 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
             this.emitWithState('endEnterPackageNumber', packageNumber);
         }
     },
-    FirstNumbers() {
-        this.attributes.turn = 0;
-        const confirmationStatus = this.event.request.intent.confirmationStatus;
-        if (confirmationStatus === 'NONE') {
-            this.emit(':delegate')
-        } else if (confirmationStatus === 'DENIED') {
-            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
-            ResponseHelper.sendResponse(this, `${speechOutput}`, this.t("FIRST_INSTRUCTION_REPROMPT_MESSAGE"));
-        } else {
-            // Fill the first number and the letter
-            this.attributes.firstNumber = this.event.request.intent.slots.number.value;
-            this.attributes.letter = this.event.request.intent.slots.letter.value.toUpperCase().charAt(0);
-            this.emitWithState('Init');
-        }
-    },
     DigitsPackage() {
         const confirmationStatus = this.event.request.intent.confirmationStatus;
         if (confirmationStatus === 'NONE') {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
-            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
+            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE')) + this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn];
             ResponseHelper.sendResponse(this, `${speechOutput}`, this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn]);
         } else {
             const digits = this.event.request.intent.slots.digits.value;
@@ -67,8 +52,8 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
         if (confirmationStatus === 'NONE') {
             this.emit(':delegate')
         } else if (confirmationStatus === 'DENIED') {
-            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE'));
-            ResponseHelper.sendResponse(this, `${speechOutput}`, this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn]);
+            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE')) + this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn];
+            ResponseHelper.sendResponse(this, `${speechOutput} `, this.t("DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE")[this.attributes.turn]);
         } else {
             const numbers = this.event.request.intent.slots.numbers.value;
 

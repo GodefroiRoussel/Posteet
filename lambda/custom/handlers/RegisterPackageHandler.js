@@ -18,9 +18,21 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
         ResponseHelper.sendResponse(this, `${speechOutput} `, this.t("REGISTER_REPROMPT_MESSAGE"));
     },
     FirstNumbers() {
-        this.attributes.previousHandler = this.handler.state;
-        this.handler.state = config.APP_STATES.DIGIT_PACKAGE;
-        this.emitWithState('FirstNumbers');
+        this.attributes.turn = 0;
+        const confirmationStatus = this.event.request.intent.confirmationStatus;
+        if (confirmationStatus === 'NONE') {
+            this.emit(':delegate')
+        } else if (confirmationStatus === 'DENIED') {
+            speechOutput = SentenceHelper.getSentence(this.t('WRONG_UNDERSTANDING_PACKAGE')) + this.t("FIRST_INSTRUCTION_REPROMPT_MESSAGE");
+            ResponseHelper.sendResponse(this, `${speechOutput}`, this.t("FIRST_INSTRUCTION_REPROMPT_MESSAGE"));
+        } else {
+            this.attributes.previousHandler = this.handler.state;
+            this.handler.state = config.APP_STATES.DIGIT_PACKAGE;
+            // Fill the first number and the letter
+            this.attributes.firstNumber = this.event.request.intent.slots.number.value;
+            this.attributes.letter = this.event.request.intent.slots.letter.value.toUpperCase().charAt(0);
+            this.emitWithState('Init');
+        }
     },
     endEnterPackageNumber(packageNumber) {
         const alexa = this;
