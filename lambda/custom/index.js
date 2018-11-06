@@ -46,6 +46,11 @@ const newSessionHandlers = {
         this.attributes.speechOutput = SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE'));
         this.emitWithState('Menu')
     },
+    'AMAZON.HelpIntent': function helpStart() {
+        this.handler.state = config.APP_STATES.START;
+        this.attributes.speechOutput = this.t("HELP_MESSAGE_MENU");
+        this.emitWithState('Menu');
+    },
 };
 
 exports.handler = function (event, context) {
