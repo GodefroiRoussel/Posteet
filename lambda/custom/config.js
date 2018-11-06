@@ -64,7 +64,7 @@ module.exports = {
                     "Votre colis a bien été enregistré. Vous pouvez maintenant le suivre en disant 'Alexa où est mon colis'. ",
                     "J'ai bien enregistré le colis. Vous pouvez le suivre en disant 'Alexa où est mon colis'. ",
                     "Super le colis a été enregistré. Dites 'Alexa où est mon colis' pour le suivre. "],
-                HELP_MESSAGE_REGISTER: "Vous devez donner le numéro de colis que vous souhaitez enregistrer. Pour cela commencez par donner le premier chiffre et la première lettre de votre colis. ",
+                HELP_MESSAGE_REGISTER: "Vous devez donner le numéro de colis que vous souhaitez enregistrer. Pour cela commencez par donner le premier chiffre et la première lettre de votre colis. Si ce n'est pas ce que vous souhaitiez, vous pouvez dire 'Alexa annule' pour retourner au menu et vous pouvez quitter la skill 'Alexa, quitte'. ",
                 REGISTER_REPROMPT_MESSAGE: "Donnez moi le premier chiffre et la première lettre de votre colis. ",
                 END_REGISTER_REPROMPT_MESSAGE: "Pour connaître l'état de votre nouveau colis enregistré dites : 'Alexa où en est mon colis'. Demandez moi de l'aide si vous souhaitez plus d'informations sur les différentes fonctionnalités disponibles. ",
 
@@ -75,7 +75,7 @@ module.exports = {
                 PACKAGE_DOESNT_EXISTS: ["Votre colis n'existe pas. ", "Je suis désolée votre colis n'existe pas. ", "Le colis que vous avez mentionné n'existe pas. ",
                     "Je suis désolée le colis n'existe pas. "],
                 PACKAGES_EMPTY: ["Vous n'avez aucun colis enregistré. ", "Je suis désolée vous n'avez aucun colis enregistré. ", "Aucun colis n'est encore enregistré. "],
-                HELP_MESSAGE_DELETE: "Vous devez donner le numéro de colis que vous souhaitez supprimer. Pour cela commencez par donner le premier chiffre et la première lettre de votre colis. ",
+                HELP_MESSAGE_DELETE: "Vous devez donner le numéro de colis que vous souhaitez supprimer. Pour cela commencez par donner le premier chiffre et la première lettre de votre colis. Vous pouvez aussi à tout moment retourner au menu en disant 'Alexa annuler' ou quitter l'application en disant 'Alexa quitte'. ",
                 DELETE_REPROMPT_MESSAGE: "Donnez moi le premier chiffre et la première lettre de votre colis à supprimer. ",
                 DELETE_IMPOSSIBLE: "Je ne peux pas supprimer de colis car vous n'avez pas de colis enregistrés actuellement. Voici les actions que vous pouvez effectuer: ",
 
@@ -104,15 +104,15 @@ module.exports = {
                 NO_NEAREST_OFFICE: "Je suis désolée mais je n'ai pas pu trouver le bureau de poste le plus proche. Votre adresse est peut être incomplète, vous pouvez la modifier depuis votre skill Alexa. ",
 */
                 // Digit Handler
-                HELP_MESSAGE_DIGIT: "Vous devez donner les 4 prochains chiffres de votre commande. ",
-                HELP_MESSAGE_NUMBER: "Vous devez donner les derniers chiffres de votre commande. ",
-                HELP_MESSAGE_NUMBER_LETTER: "Vous devez donner le premier chiffre et la lettre de votre commande. ",
+                HELP_MESSAGE_DIGIT: "Vous devez donner les 4 prochains chiffres de votre commande. Vous pouvez à tout moment retourner au menu en disant 'Alexa annuler' ou quitter l'application en disant 'Alexa quitte'. ",
+                HELP_MESSAGE_NUMBER: "Vous devez donner les derniers chiffres de votre commande. Vous pouvez à tout moment retourner au menu en disant 'Alexa annuler' ou quitter l'application en disant 'Alexa quitte'. ",
+                HELP_MESSAGE_NUMBER_LETTER: "Vous devez donner le premier chiffre et la lettre de votre commande. Vous pouvez à tout moment retourner au menu en disant 'Alexa annuler' ou quitter l'application en disant 'Alexa quitte'. ",
                 FIRST_INSTRUCTION_REPROMPT_MESSAGE: "Donnez moi le premier numéro et la première lettre de votre colis s'il vous plait. ",
                 DIGIT_INSTRUCTIONS: ["Parfait ! Quels sont les 4 premiers numéros ? ", "Continuons maintenant avec les 4 prochains numéros. ", "C'est bientôt fini. Donnez moi les derniers numéros du colis. "],
                 DIGIT_INSTRUCTIONS_REPROMPT_MESSAGE: ["Quels sont les 4 premiers numéros ? ", "Quels sont les 4 numéros maintenant ? ", "Quels sont les derniers numéros ? "],
 
                 // Price Package Handler
-                HELP_MESSAGE_PRICE_PACKAGE: "Vous devez me donner le type de courrier que vous souhaitez envoyer ainsi que le poids que ce courrier fait afin que je puisse vous aider. ",
+                HELP_MESSAGE_PRICE_PACKAGE: "Vous devez me donner le type de courrier que vous souhaitez envoyer ainsi que le poids que ce courrier fait afin que je puisse vous aider. Quel type de courrier et quel poids souhaitez-vous connaitre ? ",
                 PRICE_REPROMPT_MESSAGE: "Donnez moi le type ou le poids du courrier donc vous souhaitez connaître le prix. ",
             }
         }
