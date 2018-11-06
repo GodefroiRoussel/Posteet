@@ -1,3 +1,7 @@
+/**
+ * Unused right now, it was deleted to let us a chance to pass the Amazon certif in time
+ */
+
 const Alexa = require('alexa-sdk');
 const axios = require('axios');
 const config = require('../config');
@@ -98,7 +102,7 @@ const findClosestPostingServiceHandler = Alexa.CreateStateHandler(config.APP_STA
         }
 
     }
-    //No need of Amazon Intent here because we always go to another handler (or leave the application) when sending a response
+    //No need of Amazon Intent here because we always go to another handler (or leave the skill) when sending a response
 })
 
 module.exports = findClosestPostingServiceHandler;

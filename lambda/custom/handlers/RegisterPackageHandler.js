@@ -25,7 +25,7 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
     endEnterPackageNumber(packageNumber) {
         const alexa = this;
 
-        // Redirection to the Start of the application
+        // Redirection to the Start of the skill
         this.handler.state = config.APP_STATES.START;
 
         DB.getSession(alexa.event.context.System.user.userId)
@@ -59,6 +59,14 @@ const registerPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.REGIST
     },
     FindPackage() {
         this.handler.state = config.APP_STATES.FIND_PACKAGE;
+        this.emitWithState('Init');
+    },
+    PricePackage() {
+        this.handler.state = config.APP_STATES.PRICE_PACKAGE;
+        this.emitWithState('PricePackage');
+    },
+    DeletePackage() {
+        this.handler.state = config.APP_STATES.DELETE_PACKAGE;
         this.emitWithState('Init');
     },
     'AMAZON.CancelIntent': function stopGame() {

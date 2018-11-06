@@ -47,6 +47,18 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
                 })
         }
     },
+    RegisterPackage() {
+        this.handler.state = config.APP_STATES.REGISTER_PACKAGE;
+        this.emitWithState('Init');
+    },
+    FindPackage() {
+        this.handler.state = config.APP_STATES.FIND_PACKAGE;
+        this.emitWithState('Init');
+    },
+    DeletePackage() {
+        this.handler.state = config.APP_STATES.DELETE_PACKAGE;
+        this.emitWithState('Init');
+    },
     Unhandled() {
         ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')), this.t("PRICE_REPROMPT_MESSAGE"));
     },

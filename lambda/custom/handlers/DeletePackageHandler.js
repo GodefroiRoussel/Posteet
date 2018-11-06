@@ -6,16 +6,30 @@ const DB = require('../Database/DB');
 
 const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_PACKAGE, {
     Init() {
-        // Init variables that will be implemented
-        this.attributes.firstNumber = "";
-        this.attributes.letter = "";
-        this.attributes.firstDigits = "";
-        this.attributes.secondDigits = "";
-        this.attributes.lastDigits = "";
+        const alexa = this;
 
-        speechOutput = SentenceHelper.getSentence(this.t('INIT_DELETION'));
-        ResponseHelper.sendResponse(this, `${speechOutput} `, this.t("DELETE_REPROMPT_MESSAGE"));
+        DB.getSession(alexa.event.context.System.user.userId)
+            .then(session => {
+                if (session.packages) {
+                    // Init variables that will be implemented
+                    alexa.attributes.firstNumber = "";
+                    alexa.attributes.letter = "";
+                    alexa.attributes.firstDigits = "";
+                    alexa.attributes.secondDigits = "";
+                    alexa.attributes.lastDigits = "";
 
+                    speechOutput = SentenceHelper.getSentence(alexa.t('INIT_DELETION'));
+                    ResponseHelper.sendResponse(alexa, `${speechOutput} `, alexa.t("DELETE_REPROMPT_MESSAGE"));
+                }
+                else {
+                    alexa.attributes.speechOutput = SentenceHelper.getSentence(alexa.t('DELETE_IMPOSSIBLE'));
+                    alexa.handler.state = config.APP_STATES.START;
+                    alexa.emitWithState('Menu');
+                }
+            }).catch(err => {
+                console.log(err);
+                ResponseHelper.sendResponse(alexa, `${alexa.t("AMAZON_ERROR")} `, null, null, null, null, false);
+            });
     },
     FirstNumbers() {
         this.attributes.previousHandler = this.handler.state;
@@ -25,7 +39,7 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
     endEnterPackageNumber(packageNumber) {
         const alexa = this;
 
-        // Redirection to the Start of the application
+        // Redirection to the Start of the skill
         this.handler.state = config.APP_STATES.START;
 
         DB.getSession(alexa.event.context.System.user.userId)
@@ -64,9 +78,17 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
                 ResponseHelper.sendResponse(alexa, `${speechOutput}`, null, null, null, null, false);
             });
     },
+    RegisterPackage() {
+        this.handler.state = config.APP_STATES.REGISTER_PACKAGE;
+        this.emitWithState('Init');
+    },
     FindPackage() {
         this.handler.state = config.APP_STATES.FIND_PACKAGE;
         this.emitWithState('Init');
+    },
+    PricePackage() {
+        this.handler.state = config.APP_STATES.PRICE_PACKAGE;
+        this.emitWithState('PricePackage');
     },
     Unhandled() {
         ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')), this.t("DELETE_REPROMPT_MESSAGE"));

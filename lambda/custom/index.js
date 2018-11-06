@@ -16,7 +16,7 @@ const findPackageHandler = require('./handlers/FindPackageHandler');
 const pricePackageHandler = require('./handlers/PricePackageHandler');
 const deletePackageHandler = require('./handlers/DeletePackageHandler');
 const digitHandler = require('./handlers/DigitHandler');
-const findClosestOffice = require('./handlers/FindClosestPostingServiceHandler');
+//const findClosestOffice = require('./handlers/FindClosestPostingServiceHandler');
 
 
 
@@ -41,10 +41,6 @@ const newSessionHandlers = {
         this.handler.state = config.APP_STATES.DELETE_PACKAGE;
         this.emitWithState('Init');
     },
-    FindPostingService() {
-        this.handler.state = config.APP_STATES.FIND_POSTING_SERVICE;
-        this.emitWithState('PostingServiceIntent');
-    },
     Unhandled() {
         this.handler.state = config.APP_STATES.START;
         this.attributes.speechOutput = SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE'));
@@ -65,7 +61,7 @@ exports.handler = function (event, context) {
         pricePackageHandler,
         deletePackageHandler,
         digitHandler,
-        findClosestOffice
+        //findClosestOffice
     );
     alexa.execute();
 };

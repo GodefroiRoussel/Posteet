@@ -21,7 +21,7 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
                     speechOutput += this.t('RETRIEVE_INFO_PACKAGE');
                     speechOutput += this.t('DELETE_PACKAGE');
                 }
-                speechOutput += this.t("FIND_POSTE")
+                //speechOutput += this.t("FIND_POSTE")
                 speechOutput += this.t("PRICE_PACKAGE")
                 speechOutput += this.t("ASK_MENU");
                 DB.save(alexa.event.context.System.user.userId, session)
@@ -53,10 +53,6 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
     DeletePackage() {
         this.handler.state = config.APP_STATES.DELETE_PACKAGE;
         this.emitWithState('Init');
-    },
-    FindPostingService() {
-        this.handler.state = config.APP_STATES.FIND_POSTING_SERVICE;
-        this.emitWithState('PostingServiceIntent');
     },
     Unhandled() {
         ResponseHelper.sendResponse(this, SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE')), this.t("START_REPROMPT_MESSAGE"));

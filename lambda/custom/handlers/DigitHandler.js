@@ -83,6 +83,22 @@ const digitHandler = Alexa.CreateStateHandler(config.APP_STATES.DIGIT_PACKAGE, {
             this.emitWithState('Init');
         }
     },
+    RegisterPackage() {
+        this.handler.state = config.APP_STATES.REGISTER_PACKAGE;
+        this.emitWithState('Init');
+    },
+    FindPackage() {
+        this.handler.state = config.APP_STATES.FIND_PACKAGE;
+        this.emitWithState('Init');
+    },
+    PricePackage() {
+        this.handler.state = config.APP_STATES.PRICE_PACKAGE;
+        this.emitWithState('PricePackage');
+    },
+    DeletePackage() {
+        this.handler.state = config.APP_STATES.DELETE_PACKAGE;
+        this.emitWithState('Init');
+    },
     Unhandled() {
         let repromptSpeech = "";
         if (this.attributes.number !== '')

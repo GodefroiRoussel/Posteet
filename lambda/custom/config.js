@@ -50,9 +50,9 @@ module.exports = {
                 REGISTER_PACKAGE: 'Vous pouvez enregistrer un colis. ',
                 DELETE_PACKAGE: 'Vous pouvez supprimer un colis. ',
                 RETRIEVE_INFO_PACKAGE: "Vous pouvez savoir où se trouve un de vos colis enregistrés. ",
-                START_REPROMPT_MESSAGE: "Vous pouvez dire par exemple 'Alexa enregistre un colis', 'Alexa où se trouve le bureau de poste le plus proche' ou encore 'Quel est le prix d'une lettre ?'. ",
+                START_REPROMPT_MESSAGE: "Vous pouvez dire par exemple 'Alexa enregistre un colis' ou encore 'Quel est le prix d'une lettre ?'. ", // 'Alexa où se trouve le bureau de poste le plus proche'
                 HELP_MESSAGE_MENU: "Vous vous trouvez sur le menu de la skill. Vous pouvez faire ces différentes actions. ",
-                FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche de chez vous. ",
+                //FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche de chez vous. ",
                 PRICE_PACKAGE: "Enfin, vous pouvez connaître le prix d'un colis. ",
                 ASK_MENU: "Que voulez-vous faire? ",
 
@@ -94,6 +94,7 @@ module.exports = {
                     "Il n'y a aucun colis enregistré. Donnez moi le numéro de colis que je dois chercher. "],
 
                 // Find Closest Posting Service Handler
+                /* UNCOMMENT WHEN IMPLEMENTING BACK THE POSTING 
                 NOTIFY_MISSING_PERMISSIONS: "Je ne peux pas accéder à votre adresse. Veuillez le permettre depuis votre skill Alexa ",
                 NO_ADDRESS: "Il semblerait que vous n'ayez pas renseigné votre adresse. Vous pouvez le faire depuis votre skill Alexa. ",
                 DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard ",
@@ -101,7 +102,7 @@ module.exports = {
                 NEAREST_OFFICE_DISTANCE: "Le bureau de poste le plus proche est situé à ",
                 NEAREST_OFFICE: "Le bureau de poste le plus proche est situé au ",
                 NO_NEAREST_OFFICE: "Je suis désolée mais je n'ai pas pu trouver le bureau de poste le plus proche. Votre adresse est peut être incomplète, vous pouvez la modifier depuis votre skill Alexa. ",
-
+*/
                 // Digit Handler
                 HELP_MESSAGE_DIGIT: "Vous devez donner les 4 prochains chiffres de votre commande. ",
                 HELP_MESSAGE_NUMBER: "Vous devez donner les derniers chiffres de votre commande. ",
