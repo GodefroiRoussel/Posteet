@@ -2,6 +2,12 @@ const Alexa = require('alexa-sdk');
 const config = require('./config');
 
 /**
+ * Helpers
+ */
+const ResponseHelper = require('./Helpers/ResponseHelper');
+const SentenceHelper = require('./Helpers/SentenceHelper');
+
+/**
  * We import handlers as they are separated in different files
  */
 const startAppHandler = require('./handlers/StartAppHandler');
@@ -13,11 +19,37 @@ const digitHandler = require('./handlers/DigitHandler');
 const findClosestOffice = require('./handlers/FindClosestPostingServiceHandler');
 
 
+
 const newSessionHandlers = {
     LaunchRequest: function () {
         this.handler.state = config.APP_STATES.START;
         this.emitWithState('Welcome');
-    }
+    },
+    RegisterPackage() {
+        this.handler.state = config.APP_STATES.REGISTER_PACKAGE;
+        this.emitWithState('Init');
+    },
+    FindPackage() {
+        this.handler.state = config.APP_STATES.FIND_PACKAGE;
+        this.emitWithState('Init');
+    },
+    PricePackage() {
+        this.handler.state = config.APP_STATES.PRICE_PACKAGE;
+        this.emitWithState('PricePackage');
+    },
+    DeletePackage() {
+        this.handler.state = config.APP_STATES.DELETE_PACKAGE;
+        this.emitWithState('Init');
+    },
+    FindPostingService() {
+        this.handler.state = config.APP_STATES.FIND_POSTING_SERVICE;
+        this.emitWithState('PostingServiceIntent');
+    },
+    Unhandled() {
+        this.handler.state = config.APP_STATES.START;
+        this.attributes.speechOutput = SentenceHelper.getSentence(this.t('UNHANDLE_MESSAGE'));
+        this.emitWithState('Menu')
+    },
 };
 
 exports.handler = function (event, context) {
