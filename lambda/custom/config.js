@@ -2,9 +2,9 @@ module.exports = {
     DYNAMODB_TABLE: 'Posteet',
     LAPOSTE_API_KEY: 'zchl9IRQIeGObF+kw+s4nD4h+d6pJKqgGMwJtT7KFJs/sGa4p1ljEh8hU1zwNcaV',
     DISTANCE_API_KEY: 'DOW3yIozsh0EobJtzvPwP5AzbSMP0YrS',
-   
+
     APP_STATES: {
-        START: "_START", // Entry point, start the application.
+        START: "_START", // Entry point, start the skill.
         REGISTER_PACKAGE: "_REGISTER_PACKAGE",
         FIND_PACKAGE: "_FIND_PACKAGE",
         PRICE_PACKAGE: "_PRICE_PACKAGE",
@@ -24,10 +24,10 @@ module.exports = {
         "fr-FR": {
             translation: {
                 //General
-                EXIT_INSTRUCTIONS: ["Vous pouvez quitter l'application en disant 'Alexa quitte'. ", "Dites 'Alexa quitte' pour quitter l'application. "],
+                EXIT_INSTRUCTIONS: ["Vous pouvez quitter la skill en disant 'Alexa quitte'. ", "Dites 'Alexa quitte' pour quitter la skill. "],
                 UNHANDLE_MESSAGE: ["Je suis désolé, je n'ai pas compris ce que vous venez de dire. ", "Excusez moi je n'ai pas compris ce que vous avez dit. ",
                     "Je suis désolée je ne comprends pas ce que vous dites. ", "Excusez moi je ne comprends pas ce que vous venez de dire. ", "Je suis désolée je ne comprends pas. "],
-                STOP_MESSAGE: ["Merci d'avoir utilisé notre application. J'espère vous revoir très bientôt. ", "Je vous remercie et à très vite. ",
+                STOP_MESSAGE: ["Merci d'avoir utilisé notre skill. J'espère vous revoir très bientôt. ", "Je vous remercie et à très vite. ",
                     "Je vous remercie pour votre utilisation et espère vous voir très vite. ", "Merci beaucoup et à bientôt. "],
                 ASK_ACTION: ["Que souhaitez vous faire? ", "Quelle action voulez-vous faire ? ", "Quelle action voulez-vous exécuter ? "],
                 CANCEL_MESSAGE: ["Très bien, retournons sur le menu. ", "Retournons sur le menu principal. ", "Pas de problème, retournons sur le menu. "],
@@ -35,7 +35,7 @@ module.exports = {
                     "Nous sommes désolé, le service est temporairement indisponible. Nous vous demandons de réessayer plus tard. ",
                     "Nous sommes désolé, le service est actuellement indisponible. Veuillez réessayer plus tard. "],
                 ASK_OTHER_ACTION: ["Quelle autre action souhaitez-vous effectuer ? ", "Quelle est la prochaine action à effectuer ? ",
-                    "Voulez-vous faire autre chose ? ", "Désirez vous faire autre choses avec l'application ? "],
+                    "Voulez-vous faire autre chose ? ", "Désirez vous faire autre choses avec la skill ? "],
                 WRONG_UNDERSTANDING_PACKAGE: ["Ah j'ai mal compris votre numéro de colis ? Recommençons ! Dites moi votre numéro de colis ou dites 'Annuler' pour retourner à l'accueil. ",
                     "Je suis désolée j'ai mal compris votre numéro de colis. Dites moi de nouveau votre numéro ou dites 'Annuler' pour retourner à l'accueil. ",
                     "Je n'ai pas compris votre numéro de colis. Veuillez le répéter ou dites 'Annuler' pour retourner à l'accueil. ",
@@ -51,7 +51,7 @@ module.exports = {
                 DELETE_PACKAGE: 'Vous pouvez supprimer un colis. ',
                 RETRIEVE_INFO_PACKAGE: "Vous pouvez savoir où se trouve un de vos colis enregistrés. ",
                 START_REPROMPT_MESSAGE: "Vous pouvez dire par exemple 'Alexa enregistre un colis', 'Alexa où se trouve le bureau de poste le plus proche' ou encore 'Quel est le prix d'une lettre ?'. ",
-                HELP_MESSAGE_MENU: "Vous vous trouvez sur le menu de l'application. Vous pouvez faire ces différentes actions. ",
+                HELP_MESSAGE_MENU: "Vous vous trouvez sur le menu de la skill. Vous pouvez faire ces différentes actions. ",
                 FIND_POSTE: "Vous pouvez trouver le bureau de poste le plus proche de chez vous. ",
                 PRICE_PACKAGE: "Enfin, vous pouvez connaître le prix d'un colis. ",
                 ASK_MENU: "Que voulez-vous faire? ",
@@ -77,6 +77,7 @@ module.exports = {
                 PACKAGES_EMPTY: ["Vous n'avez aucun colis enregistré. ", "Je suis désolée vous n'avez aucun colis enregistré. ", "Aucun colis n'est encore enregistré. "],
                 HELP_MESSAGE_DELETE: "Vous devez donner le numéro de colis que vous souhaitez supprimer. Pour cela commencez par donner le premier chiffre et la première lettre de votre colis. ",
                 DELETE_REPROMPT_MESSAGE: "Donnez moi le premier chiffre et la première lettre de votre colis. ",
+                DELETE_IMPOSSIBLE: "Je ne peux pas supprimer de colis car vous n'avez pas de colis enregistrés actuellement. Voici les actions que vous pouvez effectuer: ",
 
                 // Find Package Handler
                 WRONT_TYPE: ["Le problème vient de chez nous et nous travaillons actuellement dessus. Merci de votre compréhension. ",
@@ -93,13 +94,13 @@ module.exports = {
                     "Il n'y a aucun colis enregistré. Donnez moi le numéro de colis que je dois chercher. "],
 
                 // Find Closest Posting Service Handler
-                NOTIFY_MISSING_PERMISSIONS: "Je ne peux pas accéder à votre adresse. Veuillez le permettre depuis votre application Alexa ",
-                NO_ADDRESS: "Il semblerait que vous n'ayez pas renseigné votre adresse. Vous pouvez le faire depuis votre application Alexa. ",
+                NOTIFY_MISSING_PERMISSIONS: "Je ne peux pas accéder à votre adresse. Veuillez le permettre depuis votre skill Alexa ",
+                NO_ADDRESS: "Il semblerait que vous n'ayez pas renseigné votre adresse. Vous pouvez le faire depuis votre skill Alexa. ",
                 DISTANCE_ERROR: "Je ne suis pas en capacité de fournir de distance pour le moment. Veuillez réessayer plus tard ",
                 NEAREST_OFFICE_ADDRESS: "A l'adresse suivante : ",
                 NEAREST_OFFICE_DISTANCE: "Le bureau de poste le plus proche est situé à ",
                 NEAREST_OFFICE: "Le bureau de poste le plus proche est situé au ",
-                NO_NEAREST_OFFICE: "Je suis désolée mais je n'ai pas pu trouver le bureau de poste le plus proche. Votre adresse est peut être incomplète, vous pouvez la modifier depuis votre application Alexa. ",
+                NO_NEAREST_OFFICE: "Je suis désolée mais je n'ai pas pu trouver le bureau de poste le plus proche. Votre adresse est peut être incomplète, vous pouvez la modifier depuis votre skill Alexa. ",
 
                 // Digit Handler
                 HELP_MESSAGE_DIGIT: "Vous devez donner les 4 prochains chiffres de votre commande. ",
