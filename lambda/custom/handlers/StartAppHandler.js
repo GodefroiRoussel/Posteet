@@ -17,7 +17,7 @@ const startAppHandler = Alexa.CreateStateHandler(config.APP_STATES.START, {
         speechOutput += this.t('REGISTER_PACKAGE');
         DB.getSession(alexa.event.context.System.user.userId)
             .then(session => {
-                if (session.packages) {
+                if (session.packages && session.packages.length > 0) {
                     speechOutput += this.t('RETRIEVE_INFO_PACKAGE');
                     speechOutput += this.t('DELETE_PACKAGE');
                 }

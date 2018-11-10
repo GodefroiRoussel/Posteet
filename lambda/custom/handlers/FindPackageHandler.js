@@ -17,7 +17,7 @@ const findPackageHandler = Alexa.CreateStateHandler(config.APP_STATES.FIND_PACKA
         // Check if we can find a package
         DB.getSession(alexa.event.context.System.user.userId)
             .then(session => {
-                if (session.packages) {
+                if (session.packages && session.packages.length > 0) {
                     alexa.emitWithState('FindPackage', session)
                 } else {
                     alexa.handler.state = config.APP_STATES.START;

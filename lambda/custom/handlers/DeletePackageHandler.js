@@ -10,7 +10,7 @@ const deletePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.DELETE_P
 
         DB.getSession(alexa.event.context.System.user.userId)
             .then(session => {
-                if (session.packages) {
+                if (session.packages && session.packages.length > 1) {
                     // Init variables that will be implemented
                     alexa.attributes.firstNumber = "";
                     alexa.attributes.letter = "";
