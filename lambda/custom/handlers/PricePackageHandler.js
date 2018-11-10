@@ -39,7 +39,8 @@ const pricePackageHandler = Alexa.CreateStateHandler(config.APP_STATES.PRICE_PAC
                         speechOutput += " à " + priceArray[0] + "," + priceArray[1] + "" + element.currency + ". <break time='1s'/>";
                     });
                     alexa.handler.state = config.APP_STATES.START;
-                    ResponseHelper.sendResponse(alexa, `${speechOutput} . ${SentenceHelper.getSentence(alexa.t("ASK_OTHER_ACTION"))} `, alexa.t("START_REPROMPT_MESSAGE"));
+                    alexa.attributes.speechOutput = `${speechOutput} . ${SentenceHelper.getSentence(alexa.t("ASK_OTHER_ACTION"))} `;
+                    alexa.emitWithState("Menu");
                 })
                 .catch(err => {
                     console.log(err);

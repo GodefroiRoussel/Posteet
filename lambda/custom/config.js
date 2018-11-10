@@ -45,7 +45,7 @@ module.exports = {
 
                 // startFlightHandler
                 WELCOME_APP_MESSAGE: 'Bienvenue sur %s . ',
-                APP_NAME: 'Posteet ',
+                APP_NAME: 'Mon Posteet ',
                 WELCOME_MESSAGE: 'Je vais vous aider avec les différents services de La Poste. ',
                 REGISTER_PACKAGE: 'Vous pouvez enregistrer un colis de type colissimo. ',
                 DELETE_PACKAGE: 'Vous pouvez supprimer un colis. ',
